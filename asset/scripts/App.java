@@ -2,6 +2,7 @@ package asset.scripts;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.ComponentSampleModel;
@@ -27,7 +28,7 @@ public class App implements Default{
     private Player player;
     private Enemy enemy;
     private int[] latest_save = new int[2]; // 0 : latest_chapter, 1 : highest_score
-    private int ALL_CHAPTER = 30;
+    private int ALL_CHAPTER = 30, current_chapter=1;
 
     public App(){
 
@@ -54,14 +55,16 @@ public class App implements Default{
             Scanner scan = new Scanner(new File(Default.DEFAULT_SAVED_PATH));
             String _input = scan.nextLine();
             String[] input = _input.split(", ");
+            System.out.println(Arrays.toString(input));
             latest_save[0] = Integer.parseInt(input[0]);
             latest_save[1] = Integer.parseInt(input[1]);
             scan.close();
         }catch(FileNotFoundException e){
+            System.out.println("No File");
             File f = new File(Default.DEFAULT_SAVED_PATH);
             try{
                 FileWriter fw = new FileWriter(Default.DEFAULT_SAVED_PATH);
-                fw.write(0 + ", "+ 0);
+                fw.write(1 + ", "+ 0);
                 fw.close();
             }catch(IOException er){ return; }
         }
@@ -72,17 +75,19 @@ public class App implements Default{
         scan.close();
     }
     public void createStartMenu(){
+
+        clearScreen();
+
         game_title = new JLabel(title);
         game_title.setFont(new Font(game_title.getFont().getName(), game_title.getFont().getStyle(), 48));
         game_title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        game_title.setBorder(new EmptyBorder(APP_HEIGHT/4, 0, 0, 0));
 
         start_button = new JButton("Start");
         start_button.setFont(new Font(start_button.getFont().getName(), start_button.getFont().getStyle(), 24));
         start_button.setAlignmentX(Component.CENTER_ALIGNMENT);
         start_button.setSize(new Dimension(100, 50));
         start_button.addActionListener(event -> {
-            select_chapter();
+            selectEpisode();
         });
 
         endless_button = new JButton("Endless");
@@ -93,6 +98,7 @@ public class App implements Default{
         exit_button.setFont(new Font(exit_button.getFont().getName(), exit_button.getFont().getStyle(), 24));
         exit_button.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        frame.getContentPane().add(Box.createRigidArea(new Dimension(0, frame.getHeight()/4)));
         frame.getContentPane().add(game_title);
         frame.getContentPane().add(Box.createRigidArea(new Dimension(0, 20)));
         frame.getContentPane().add(start_button);
@@ -104,39 +110,96 @@ public class App implements Default{
         frame.revalidate();
         frame.repaint();
     }
+    public void selectEpisode(){
 
-    public void select_chapter(){
+        clearScreen();
+
+        int latest_episode = latest_save[0]>=10 ? latest_save[0]/10 : 1 ;
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+        panel.setBorder(new LineBorder(Color.black));
+        panel.setMaximumSize(new Dimension(frame.getWidth(), 200));
+        for(int i=1; i<4; i++){
+            JButton episode = new JButton();
+            int chapter = i;
+            if(i<=latest_episode){
+                episode.setBackground(Color.white);
+                episode.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        selectChapter(chapter);
+                    }
+                });
+            }
+            else{
+                episode.setBackground(Color.gray);
+            }
+            episode.setPreferredSize(new Dimension(200, 200));
+            episode.setFont(new Font(episode.getFont().getName(), episode.getFont().getStyle(), 24));
+            panel.add(episode);
+
+        }
+
+        JButton back_button = new JButton("Back");
+        back_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createStartMenu();
+            }
+        });
+        game_title.setAlignmentY(Component.CENTER_ALIGNMENT);
+        panel.setAlignmentY(Component.CENTER_ALIGNMENT);
+        back_button.setAlignmentY(Component.CENTER_ALIGNMENT);
+        frame.getContentPane().add(Box.createRigidArea(new Dimension(0, (int)(frame.getHeight()*0.2))));
+        frame.getContentPane().add(game_title);
+        frame.getContentPane().add(Box.createRigidArea(new Dimension(0, 20)));
+        frame.getContentPane().add(panel);
+        frame.getContentPane().add(Box.createRigidArea(new Dimension(0, 20)));
+        frame.getContentPane().add(back_button);
+
+    }
+    public void selectChapter(int current_chapter){
+
+        clearScreen();
+
+        frame.getContentPane().add(Box.createRigidArea(new Dimension(0, (int)(frame.getHeight()*0.05))));
+        frame.getContentPane().add(game_title);
+        frame.getContentPane().add(Box.createRigidArea(new Dimension(0, 40)));
+
+        JPanel chapter = new JPanel();
+        chapter.setPreferredSize(new Dimension(200, 200));
+        chapter.setMaximumSize(new Dimension((int)(frame.getWidth()*0.8), frame.getHeight()/2));
+        chapter.setLayout(new GridLayout(2, 5));
+        for(int i=1; i<11; i++){
+            JButton button = new JButton(current_chapter+"-"+i);
+            if(current_chapter * i <= latest_save[0]){
+                button.setBackground(Color.white);
+            }
+            else{
+                button.setBackground(Color.gray);
+            }
+            button.setFont(new Font(button.getFont().getName(), button.getFont().getStyle(), 24));
+            chapter.add(button);
+        }
+
+        frame.getContentPane().add(chapter);
+        frame.getContentPane().add(Box.createRigidArea(new Dimension(0, 20)));
+
+        JButton back_button = new JButton("Back");
+        back_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectEpisode();
+            }
+        });
+        frame.getContentPane().add(back_button);
+
+    }
+    public void clearScreen(){
         frame.getContentPane().removeAll();
         frame.getContentPane().revalidate();
         frame.validate();
         frame.repaint();
-
-        game_title.setBorder(new EmptyBorder(APP_HEIGHT/20, 0, 0, 0));
-        frame.getContentPane().add(game_title);
-        frame.getContentPane().add(Box.createRigidArea(new Dimension(0, 40)));
-
-        JLabel chapter = new JLabel("Chapter");
-        chapter.setMinimumSize(new Dimension(500, 300));
-        chapter.setLayout(new GridLayout());
-        for(int i=0; i<3; i++) {
-            for (int j = 0; j < 10; j++) {
-                JButton stage = new JButton((i + 1) + "-" + (j + 1));
-                if (i * j < latest_save[0]) {
-                    stage.setBackground(Color.white);
-                } else {
-                    stage.setBackground(Color.darkGray);
-                }
-                stage.setBounds(stage.getX(), stage.getY(), 100, 100);
-                GridBagConstraints setting = new GridBagConstraints();
-                setting.gridx = j;
-                setting.gridy = i;
-                chapter.add(stage, setting);
-            }
-        }
-
-        JButton test = new JButton("Test");
-        frame.getContentPane().add(test);
-
-        frame.getContentPane().add(chapter);
     }
 }
