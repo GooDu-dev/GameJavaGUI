@@ -11,6 +11,7 @@ public class WordMethods{
             Scanner scan = new Scanner(new File(Default.DEFAULT_WORD_PATH));
         } catch (FileNotFoundException e) {
             System.out.println(e);
+            //Test
         }
         //test
     }
