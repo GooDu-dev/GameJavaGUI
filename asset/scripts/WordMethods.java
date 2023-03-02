@@ -12,5 +12,6 @@ public class WordMethods{
         } catch (FileNotFoundException e) {
             System.out.println(e);
         }
+        //test
     }
 }
