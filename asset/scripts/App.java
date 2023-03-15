@@ -21,6 +21,9 @@ public class App implements Default{
     private static String title="Game Title";
     private JLabel game_title;
     private JButton start_button, endless_button, exit_button;
+    private Boolean isPlaying;
+    private JButton exitButton;
+    private JLabel gameStatusLabel;
 
     // Backend
     private String latest_chapter, highest_score;
