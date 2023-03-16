@@ -1,5 +1,6 @@
 package asset.scripts;
 
+import java.awt.FlowLayout;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -14,16 +15,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class App implements Default,ActionListener{
+public class App implements Default{
     // Frontend
     private static JFrame frame;
     private static final int APP_WIDTH=1080, APP_HEIGHT=720;
     private static String title="Game Title";
-    private JLabel game_title;
+    private JLabel game_title,option_exit;
     private JButton start_button, endless_button, exit_button;
-    private Boolean isPlaying;
-    private JLabel gameStatusLabel;
     private Container mainPanel;
+    
 
     // Backend
     private String latest_chapter, highest_score;
@@ -104,8 +104,8 @@ public class App implements Default,ActionListener{
         exit_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == exit_button){ 
-                    System.exit(0);
+                if(e.getSource() == exit_button){
+                    WindowExit_Main();
                 }
             }
         });
@@ -121,6 +121,22 @@ public class App implements Default,ActionListener{
 
         frame.revalidate();
         frame.repaint();
+    }
+    public void WindowExit_Main() {
+        option_exit = new JLabel("Are you sure you want to exit?");
+        option_exit.setHorizontalAlignment(JLabel.CENTER);
+        int option = JOptionPane.showConfirmDialog(mainPanel,option_exit,null, 0,JOptionPane.PLAIN_MESSAGE);
+        if (option == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }
+    public void WindowExit_During_Game(){
+        option_exit = new JLabel("Are you sure you want to main menu?");
+        option_exit.setHorizontalAlignment(JLabel.CENTER);
+        int option = JOptionPane.showConfirmDialog(mainPanel,option_exit,null, 0,JOptionPane.PLAIN_MESSAGE);
+        if (option == JOptionPane.YES_OPTION) {
+            // close the current window?
+        }
     }
     public void selectEpisode(){
 
@@ -214,9 +230,7 @@ public class App implements Default,ActionListener{
         frame.validate();
         frame.repaint();
     }
-    
-    
-
-    
-    
+    public void stopGame(){
+        
+    }
 }
