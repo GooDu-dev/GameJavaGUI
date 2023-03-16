@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 public class App implements Default{
     // Frontend
@@ -178,6 +180,14 @@ public class App implements Default{
             JButton button = new JButton(current_chapter+"-"+i);
             if(current_chapter * i <= latest_save[0]){
                 button.setBackground(Color.white);
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        wordBeforeStart("test word");
+                        countdown(10);
+                    }
+                    
+                });
             }
             else{
                 button.setBackground(Color.gray);
@@ -199,10 +209,44 @@ public class App implements Default{
         frame.getContentPane().add(back_button);
 
     }
+    public void wordBeforeStart(String w){
+        clearScreen();
+        JLabel word = new JLabel(w);
+        frame.getContentPane().add(word);
+    }
+    public void chapterStage(String w){
+        clearScreen();
+        
+        JLabel countdown = new JLabel("Timer :");
+        countdown.setFont(new Font(countdown.getFont().getName(),countdown.getFont().getStyle(), 30));
+        countdown.setForeground(Color.white);
+        
+        JPanel upStage = new JPanel();
+        JPanel downStage = new JPanel();
+        upStage.setBackground(Color.DARK_GRAY);
+        downStage.setBackground(Color.BLUE);
+        upStage.add(countdown);
+
+        frame.add(upStage);
+        frame.add(downStage);
+    }
     public void clearScreen(){
         frame.getContentPane().removeAll();
         frame.getContentPane().revalidate();
         frame.validate();
         frame.repaint();
+    }
+    public void countdown(int s){
+        int seconds = s;
+        while(seconds > 0){
+            seconds--;
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            System.out.println(seconds);
+        }
     }
 }
