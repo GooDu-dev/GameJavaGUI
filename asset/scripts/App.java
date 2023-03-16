@@ -1,5 +1,7 @@
 package asset.scripts;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.FlowLayout;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -15,13 +17,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class App implements Default{
+public class App implements Default,MouseListener{
     // Frontend
     private static JFrame frame;
     private static final int APP_WIDTH=1080, APP_HEIGHT=720;
     private static String title="Game Title";
     private JLabel game_title,option_exit;
-    private JButton start_button, endless_button, exit_button;
+    private JButton start_button, endless_button, exit_button,detect;
     private Container mainPanel;
     
 
@@ -135,11 +137,10 @@ public class App implements Default{
         option_exit.setHorizontalAlignment(JLabel.CENTER);
         int option = JOptionPane.showConfirmDialog(mainPanel,option_exit,null, 0,JOptionPane.PLAIN_MESSAGE);
         if (option == JOptionPane.YES_OPTION) {
-            // close the current window?
+            createStartMenu();
         }
     }
     public void selectEpisode(){
-
         clearScreen();
 
         int latest_episode = latest_save[0]>=10 ? latest_save[0]/10 : 1 ;
@@ -230,7 +231,27 @@ public class App implements Default{
         frame.validate();
         frame.repaint();
     }
-    public void stopGame(){
+    public void user_select_detect(){
         
+    }
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        //add
+    }
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // add
+    }
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // add
+    }
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // add
+    }
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // add
     }
 }
