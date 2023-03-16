@@ -14,16 +14,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class App implements Default{
+public class App implements Default,ActionListener{
     // Frontend
     private static JFrame frame;
-    private static final int APP_WIDTH=800, APP_HEIGHT=600;
+    private static final int APP_WIDTH=1080, APP_HEIGHT=720;
     private static String title="Game Title";
     private JLabel game_title;
     private JButton start_button, endless_button, exit_button;
     private Boolean isPlaying;
-    private JButton exitButton;
     private JLabel gameStatusLabel;
+    private Container mainPanel;
 
     // Backend
     private String latest_chapter, highest_score;
@@ -32,12 +32,13 @@ public class App implements Default{
     private Enemy enemy;
     private int[] latest_save = new int[2]; // 0 : latest_chapter, 1 : highest_score
     private int ALL_CHAPTER = 30, current_chapter=1;
+    
 
     public App(){
 
     }
     public App(String title){
-        this.title = title;
+        App.title = title;
     }
     public void run(){
         createFrame();
@@ -100,6 +101,14 @@ public class App implements Default{
         exit_button = new JButton("Exit");
         exit_button.setFont(new Font(exit_button.getFont().getName(), exit_button.getFont().getStyle(), 24));
         exit_button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        exit_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == exit_button){ 
+                    System.exit(0);
+                }
+            }
+        });
 
         frame.getContentPane().add(Box.createRigidArea(new Dimension(0, frame.getHeight()/4)));
         frame.getContentPane().add(game_title);
@@ -205,4 +214,9 @@ public class App implements Default{
         frame.validate();
         frame.repaint();
     }
+    
+    
+
+    
+    
 }

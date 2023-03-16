@@ -7,8 +7,7 @@ import java.util.Scanner;
 
 public class Main{
     public static void main(String[] args) {
-        App app = new App();
+        App app = new App("World Of Words");
         app.run();
-        String x = "test";
     }
 }
