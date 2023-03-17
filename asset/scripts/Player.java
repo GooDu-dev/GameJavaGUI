@@ -34,5 +34,6 @@ public class Player extends Object implements attackable{
     public void attack(Object obj) {
         if(obj.getType() != Type.ObjectType.Enemy) return;
         obj = (Enemy) obj;
+        
     }
 }

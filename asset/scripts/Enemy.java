@@ -6,8 +6,8 @@ public class Enemy extends Object implements Default, attackable{
         super(hp, image_path, type);
     }
     @Override
-    public void attack(Object obj) {
-        if(obj.getType() != Type.ObjectType.Player) return;
-        obj = (Player) obj;
+    public void attack(Object player) {
+        if(player.getType() != Type.ObjectType.Player) return;
+        player = (Player) player;
     }
 }

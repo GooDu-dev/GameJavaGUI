@@ -196,6 +196,12 @@ public class App implements Default{
         frame.getContentPane().add(back_button);
 
     }
+    public void createPlayScene(){
+
+        clearScreen();
+
+        
+    }
     public void clearScreen(){
         frame.getContentPane().removeAll();
         frame.getContentPane().revalidate();
