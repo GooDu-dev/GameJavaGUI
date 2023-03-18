@@ -240,6 +240,14 @@ public class App {
             frame.repaint();
         }
     }
+    public void WindowExit_During_Game(){
+        option_exit = new JLabel("Are you sure you want to main menu?");
+        option_exit.setHorizontalAlignment(JLabel.CENTER);
+        int option = JOptionPane.showConfirmDialog(frame,option_exit,null, 0,JOptionPane.PLAIN_MESSAGE);
+        if (option == JOptionPane.YES_OPTION) {
+            mainMenu();
+        }
+    }
     public boolean loadData(){
             try (Scanner file = new Scanner(new File("./asset/saved.txt"))) {
                 while(file.hasNextLine()){
@@ -251,12 +259,18 @@ public class App {
             }
             return true;
     }
-    public void WindowExit_During_Game(){
-        option_exit = new JLabel("Are you sure you want to main menu?");
-        option_exit.setHorizontalAlignment(JLabel.CENTER);
-        int option = JOptionPane.showConfirmDialog(frame,option_exit,null, 0,JOptionPane.PLAIN_MESSAGE);
-        if (option == JOptionPane.YES_OPTION) {
-            mainMenu();
+    /* public void showLetters(){ I'm working don't delete please
+        String [] letter = new String[10];
+        for (String c : letter) {
+            JButton char_of_word = new JButton(c);
+            char_of_word.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    if(e.getSource() == char_of_word){
+                        System.out.println(c);
+                    }
+                }
+            });
         }
-    }
+    } */
 }
