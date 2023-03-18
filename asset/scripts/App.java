@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+<<<<<<< Updated upstream
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -22,6 +23,16 @@ public class App {
     private JLabel game_title;
     private JLabel gameStatusLabel,option_exit;
 
+=======
+import java.util.Map;
+import java.util.HashMap;
+
+public class App {
+    // Frontend
+    private String title = "Game Title";
+    private static JFrame frame = new Frame();
+    
+>>>>>>> Stashed changes
     // Backend
     private static Map<String, Integer> data = new HashMap<String, Integer>();
     private final String CHAPTER="chapter", EPISODE="episode", HIGHEST_SCORE="highest_score";
@@ -127,6 +138,7 @@ public class App {
         frame.revalidate();
         frame.repaint();
     }
+<<<<<<< Updated upstream
     public void selectChapter(int current_chapter){
 
         clearScreen();
@@ -151,6 +163,34 @@ public class App {
                     }
                     
                 });
+=======
+    public void selectEpisodeMenu(){
+        ((Frame)frame).clearScreen();
+
+        frame.getContentPane().add(Box.createRigidArea(new Dimension(0, frame.getContentPane().getHeight()/10)));
+
+        JLabel title = new JLabel(this.title);
+        title.setFont(new Font(title.getFont().getName(), title.getFont().getStyle(), frame.getContentPane().getWidth()/25));
+        title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        frame.getContentPane().add(title);
+
+        frame.getContentPane().add(Box.createRigidArea(new Dimension(0, frame.getContentPane().getHeight()/10)));
+
+        JPanel episode_container = new JPanel();
+        episode_container.setLayout(new GridLayout(2, 5));
+        episode_container.setMaximumSize(new Dimension((int)(frame.getContentPane().getWidth()*0.5), (int)(frame.getContentPane().getHeight()*0.4)));
+        episode_container.setSize(new Dimension((int)(frame.getContentPane().getWidth()*0.5), (int)(frame.getContentPane().getHeight()*0.4)));
+        episode_container.setMinimumSize(new Dimension((int)(frame.getContentPane().getWidth()*0.5), (int)(frame.getContentPane().getHeight()*0.4)));
+        for(int i=0; i<MAX_EPISODE; i++){
+            JButton episode = new JButton(String.valueOf(i+1));
+            episode_container.add(episode);
+            episode.setMaximumSize(new Dimension((int)(episode.getParent().getWidth()*0.2), episode.getParent().getHeight()));
+            episode.setSize(new Dimension((int)(episode.getParent().getWidth()*0.2), episode.getParent().getHeight()));
+            episode.setMinimumSize(new Dimension((int)(episode.getParent().getWidth()*0.2), episode.getParent().getHeight()));
+            episode.setFont(new Font(episode.getFont().getName(), episode.getFont().getStyle(), frame.getContentPane().getWidth()/50));
+            if(i<data.get(EPISODE)){
+                episode.setBackground(Color.WHITE);
+>>>>>>> Stashed changes
             }
             else{
                 episode.setBackground(Color.GRAY);
@@ -165,6 +205,7 @@ public class App {
         backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         frame.getContentPane().add(backButton);
 
+<<<<<<< Updated upstream
     }
     public void wordBeforeStart(String w){
         clearScreen();
@@ -211,6 +252,19 @@ public class App {
         int option = JOptionPane.showConfirmDialog(frame,option_exit,null, 0,JOptionPane.PLAIN_MESSAGE);
         if (option == JOptionPane.YES_OPTION) {
             System.exit(0);
+=======
+        frame.revalidate();
+        frame.repaint();
+    }
+    public boolean loadData(){
+        try{
+            Scanner file = new Scanner(new File("./asset/saved.txt"));
+            while(file.hasNextLine()){
+                String[] text = file.nextLine().split(":");
+                data.put(text[0], Integer.valueOf(text[1]));
+            }
+            return true;
+>>>>>>> Stashed changes
         }
     }
     public void WindowExit_During_Game(){
