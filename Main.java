@@ -1,8 +1,10 @@
 import asset.scripts.App;
+import asset.scripts.Frame;
 
 public class Main{
     public static void main(String[] args) {
-        App app = new App();
+        App app = new App("World of Words");
+        Frame f = new Frame();
         app.run();
     }
 }
