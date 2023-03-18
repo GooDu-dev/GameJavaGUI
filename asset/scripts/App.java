@@ -15,11 +15,10 @@ import java.util.concurrent.TimeUnit;
 
 public class App {
     // Frontend
-    private static JFrame frame;
-    private static int APP_WIDTH=800, APP_HEIGHT=600;
+    private static Frame frame;
     private static String title="Game Title";
     private JLabel game_title;
-    private JLabel gameStatusLabel,option_exit;
+    private JLabel option_exit;
     
     // Backend
     private static Map<String, Integer> data = new HashMap<String, Integer>();
@@ -35,10 +34,11 @@ public class App {
         loadData();
     }
     public void run(){
+        frame = new Frame("Wordy Words");
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.setResizable(false);
-        //rdfcgmainMenu();
-        selectChapterMenu();
+        mainMenu();
+        //selectChapterMenu();
     }
     public void mainMenu(){
         ((Frame)frame).clearScreen();
@@ -256,7 +256,7 @@ public class App {
         option_exit.setHorizontalAlignment(JLabel.CENTER);
         int option = JOptionPane.showConfirmDialog(frame,option_exit,null, 0,JOptionPane.PLAIN_MESSAGE);
         if (option == JOptionPane.YES_OPTION) {
-            // close the current window?
+            mainMenu();
         }
     }
 }
