@@ -4,39 +4,30 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
-<<<<<<< HEAD
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
-=======
-import java.util.Map;
-import java.util.HashMap;
->>>>>>> main
 
 public class App {
     // Frontend
-<<<<<<< HEAD
     private static JFrame frame;
     private static final int APP_WIDTH=800, APP_HEIGHT=600;
     private static String title="Game Title";
     private JLabel game_title;
-    private JButton start_button, endless_button, exit_button;
-    private Boolean isPlaying;
-    private JButton exitButton;
-    private JLabel gameStatusLabel;
+    private JLabel gameStatusLabel,option_exit;
 
-=======
-    private String title = "Game Title";
-    private static JFrame frame = new Frame();
-    
->>>>>>> main
     // Backend
     private static Map<String, Integer> data = new HashMap<String, Integer>();
     private final String CHAPTER="chapter", EPISODE="episode", HIGHEST_SCORE="highest_score";
     
-    private final int MAX_CHAPTER=3, MAX_EPISODE=10; 
+    private final int MAX_CHAPTER=3, MAX_EPISODE=10;
+    private int[] latest_save; 
     public App(){
         loadData();
     }
@@ -47,8 +38,8 @@ public class App {
     public void run(){
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.setResizable(false);
-        //mainMenu();
-        selectEpisodeMenu();
+        //rdfcgmainMenu();
+        selectChapterMenu();
     }
     public void mainMenu(){
         ((Frame)frame).clearScreen();
@@ -81,6 +72,14 @@ public class App {
         exitButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         frame.getContentPane().add(exitButton);
         frame.getContentPane().add(Box.createRigidArea(new Dimension(0, frame.getContentPane().getHeight()/25)));
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == exitButton){
+                    WindowExit_Main();
+                }
+            }
+        });
 
         frame.revalidate();
         frame.repaint();
@@ -118,7 +117,7 @@ public class App {
             if(i<MAX_CHAPTER-1) chapter_container.add(Box.createRigidArea(new Dimension((int)(chapter_container.getWidth()*0.05), 0)));
         }
         frame.getContentPane().add(chapter_container);
-        frame.getContentPane().add(Box.createRigidArea(new Dimension(0, frame.getContentPane().getHeight()/10)));
+        frame.getContentPane().add(Box.createRigidArea(new Dimension(0, frameห.getContentPane().getHeight()/10)));
 
         JButton exitButton = new JButton("Back");
         exitButton.setFont(new Font(exitButton.getFont().getName(), exitButton.getFont().getStyle(), frame.getContentPane().getWidth()/50));
@@ -128,7 +127,6 @@ public class App {
         frame.revalidate();
         frame.repaint();
     }
-<<<<<<< HEAD
     public void selectChapter(int current_chapter){
 
         clearScreen();
@@ -153,34 +151,6 @@ public class App {
                     }
                     
                 });
-=======
-    public void selectEpisodeMenu(){
-        ((Frame)frame).clearScreen();
-
-        frame.getContentPane().add(Box.createRigidArea(new Dimension(0, frame.getContentPane().getHeight()/10)));
-
-        JLabel title = new JLabel(this.title);
-        title.setFont(new Font(title.getFont().getName(), title.getFont().getStyle(), frame.getContentPane().getWidth()/25));
-        title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        frame.getContentPane().add(title);
-
-        frame.getContentPane().add(Box.createRigidArea(new Dimension(0, frame.getContentPane().getHeight()/10)));
-
-        JPanel episode_container = new JPanel();
-        episode_container.setLayout(new GridLayout(2, 5));
-        episode_container.setMaximumSize(new Dimension((int)(frame.getContentPane().getWidth()*0.5), (int)(frame.getContentPane().getHeight()*0.4)));
-        episode_container.setSize(new Dimension((int)(frame.getContentPane().getWidth()*0.5), (int)(frame.getContentPane().getHeight()*0.4)));
-        episode_container.setMinimumSize(new Dimension((int)(frame.getContentPane().getWidth()*0.5), (int)(frame.getContentPane().getHeight()*0.4)));
-        for(int i=0; i<MAX_EPISODE; i++){
-            JButton episode = new JButton(String.valueOf(i+1));
-            episode_container.add(episode);
-            episode.setMaximumSize(new Dimension((int)(episode.getParent().getWidth()*0.2), episode.getParent().getHeight()));
-            episode.setSize(new Dimension((int)(episode.getParent().getWidth()*0.2), episode.getParent().getHeight()));
-            episode.setMinimumSize(new Dimension((int)(episode.getParent().getWidth()*0.2), episode.getParent().getHeight()));
-            episode.setFont(new Font(episode.getFont().getName(), episode.getFont().getStyle(), frame.getContentPane().getWidth()/50));
-            if(i<data.get(EPISODE)){
-                episode.setBackground(Color.WHITE);
->>>>>>> main
             }
             else{
                 episode.setBackground(Color.GRAY);
@@ -195,7 +165,6 @@ public class App {
         backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         frame.getContentPane().add(backButton);
 
-<<<<<<< HEAD
     }
     public void wordBeforeStart(String w){
         clearScreen();
@@ -231,30 +200,25 @@ public class App {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             System.out.println(seconds);
         }
     }
-}
-=======
-        frame.revalidate();
-        frame.repaint();
+    public void WindowExit_Main() {
+        option_exit = new JLabel("Are you sure you want to exit?");
+        option_exit.setHorizontalAlignment(JLabel.CENTER);
+        int option = JOptionPane.showConfirmDialog(frame,option_exit,null, 0,JOptionPane.PLAIN_MESSAGE);
+        if (option == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }
-    public boolean loadData(){
-        try{
-            Scanner file = new Scanner(new File("./asset/saved.txt"));
-            while(file.hasNextLine()){
-                String[] text = file.nextLine().split(":");
-                data.put(text[0], Integer.valueOf(text[1]));
-            }
-            return true;
+    public void WindowExit_During_Game(){
+        option_exit = new JLabel("Are you sure you want to main menu?");
+        option_exit.setHorizontalAlignment(JLabel.CENTER);
+        int option = JOptionPane.showConfirmDialog(frame,option_exit,null, 0,JOptionPane.PLAIN_MESSAGE);
+        if (option == JOptionPane.YES_OPTION) {
+            // close the current window?
         }
-        catch(FileNotFoundException e){
-            System.out.println(e);
-        }
-        return false;
     }
 }
->>>>>>> main
