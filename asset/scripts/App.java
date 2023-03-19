@@ -15,7 +15,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class App {
     // Frontend
@@ -61,16 +62,18 @@ public class App {
         frame.add(downStage);
     }
     public void countdown(int s){
-        int seconds = s;
-        while(seconds > 0){
-            seconds--;
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        final Runnable runnable = new Runnable() {
+            int countdown = s;
+            public void run() {
+                System.out.println(countdown);
+                countdown--;
+                if (countdown <+ 0) {
+                    scheduler.shutdown();
+                }
             }
-            System.out.println(seconds);
-        }
+        };
+        scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
     }
     // public void confirmExit() {
     //     JLabel message = new JLabel("Are you sure you want to exit?");
@@ -90,8 +93,7 @@ public class App {
     // }
     
     public void ShowLetter(String word) {
-        HashSet<String> uniqueAlphabet;
-        uniqueAlphabet = new HashSet<String>(Arrays.asList(word.split("")));
+        HashSet<String> uniqueAlphabet = new HashSet<String>(Arrays.asList(word.split("")));
         HashMap<String, JButton> buttonMap = new HashMap<String, JButton>();
         String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
                             "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
