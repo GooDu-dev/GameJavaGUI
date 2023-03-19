@@ -44,7 +44,7 @@ public class CustomFrame extends JFrame{
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
 
         // create start button
-        CustomButton start = new CustomButton("Start");
+        CustomButton start = new CustomButton("/picture/button/play-button.png");
         getContentPane().add(start);
         start.setAlignmentX(JButton.CENTER_ALIGNMENT);
         start.setFontSize(50);
