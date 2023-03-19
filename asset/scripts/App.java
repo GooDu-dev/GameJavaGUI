@@ -91,7 +91,7 @@ public class App {
             CustomLabel heart = new CustomLabel();
             frame.getContentPane().add(heart);
             if(i < player.getHp()-1){
-                h_container.add(Box.createRigidArea(new Dimension((int)(h_container.getWidth()*0.1), 0)))
+                h_container.add(Box.createRigidArea(new Dimension((int)(h_container.getWidth()*0.1), 0)));
             }
         }
         
@@ -172,5 +172,5 @@ public class WordGame extends JFrame {
     public void removeLetter(String letter) {
         uniqueLetters.remove(letter);
     }
-    
+}
 }
