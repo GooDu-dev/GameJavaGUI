@@ -90,13 +90,8 @@ public class CustomFrame extends JFrame{
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int choice = JOptionPane.showConfirmDialog(exit, "Are you sure?");
-                switch(choice){
-                    case JOptionPane.YES_OPTION:{
-                        Default.savedData(Default.data);
-                        System.exit(0);
-                    }
-                }
+                Default.savedData(Default.data);
+                System.exit(0);
             }
         });
         revalidate();
@@ -116,7 +111,6 @@ public class CustomFrame extends JFrame{
         getContentPane().add(container);
         container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
         container.setPanelSize(0.5, 0.4);
-        container.setBorder(BorderFactory.createLineBorder(Color.RED));
         for(int i=0; i<Default.MAX_CHAPTER; i++){
             System.out.println(i);
             int id = i;
