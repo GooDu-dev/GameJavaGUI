@@ -87,6 +87,7 @@ public class CustomFrame extends JFrame{
         exit.setContentAreaFilled(false);
         exit.setBorderPainted(false);
         exit.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        exit.setButtonSize(0.6, 1);
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -140,6 +141,7 @@ public class CustomFrame extends JFrame{
         getContentPane().add(exit);
         exit.setFontSize(50);
         exit.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        exit.setButtonSize(0.6, 1);
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
