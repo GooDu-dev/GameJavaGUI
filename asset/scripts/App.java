@@ -22,17 +22,15 @@ public class App {
     private JLabel option_exit;
     
     // Backend
-    private static Map<String, Integer> data = new HashMap<String, Integer>();
     private final String CHAPTER="chapter", EPISODE="episode", HIGHEST_SCORE="highest_score";
     
     private final int MAX_CHAPTER=3, MAX_EPISODE=10;
     private int[] latest_save; 
     public App(){
-        loadData();
+
     }
     public App(String title){
         App.title = title;
-        loadData();
     }
     public void run(){
         frame = new CustomFrame(App.title);
@@ -74,47 +72,35 @@ public class App {
             System.out.println(seconds);
         }
     }
-    public void WindowExit_Main() {
-        option_exit = new JLabel("Are you sure you want to exit?");
-        option_exit.setHorizontalAlignment(JLabel.CENTER);
-        int option = JOptionPane.showConfirmDialog(frame,option_exit,null, 0,JOptionPane.PLAIN_MESSAGE);
-        if (option == JOptionPane.YES_OPTION) {
+    public void confirmExit() {
+        JLabel message = new JLabel("Are you sure you want to exit?");
+        message.setHorizontalAlignment(JLabel.CENTER);
+        int choice = JOptionPane.showConfirmDialog(frame, message, null, JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
             System.exit(0);
-            frame.revalidate();
-            frame.repaint();
         }
-    }
-    public void WindowExit_During_Game(){
-        option_exit = new JLabel("Are you sure you want to main menu?");
-        option_exit.setHorizontalAlignment(JLabel.CENTER);
-        int option = JOptionPane.showConfirmDialog(frame,option_exit,null, 0,JOptionPane.PLAIN_MESSAGE);
+    }    
+    public void windowExitDuringGame() {
+        JLabel optionExit = new JLabel("Are you sure you want to go back to the main menu?");
+        optionExit.setHorizontalAlignment(JLabel.CENTER);
+        int option = JOptionPane.showConfirmDialog(frame, optionExit, null, JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (option == JOptionPane.YES_OPTION) {
             frame.mainMenu();
         }
     }
-    public boolean loadData(){
-            try (Scanner file = new Scanner(new File("./asset/saved.txt"))) {
-                while(file.hasNextLine()){
-                    String[] text = file.nextLine().split(":");
-                    data.put(text[0], Integer.valueOf(text[1]));
-                }
-            } catch (NumberFormatException | FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            return true;
-    }
-    /* public void showLetters(){ I'm working don't delete please
-        String [] letter = new String[10];
-        for (String c : letter) {
-            JButton char_of_word = new JButton(c);
-            char_of_word.addActionListener(new ActionListener() {
+    
+    public void showLetters() {
+        String[] letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","z"};
+        for (String letter : letters) {
+            JButton charButton = new JButton(letter);
+            charButton.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e){
-                    if(e.getSource() == char_of_word){
-                        System.out.println(c);
-                    }
+                public void actionPerformed(ActionEvent e) {
+                    if (e.getSource() == charButton) {
+                        System.out.println(letter);
+                    }   
                 }
             });
-        }
-    } */
+        }// add the button     
+    }
 }

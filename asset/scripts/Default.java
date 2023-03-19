@@ -13,12 +13,17 @@ public class Default {
     public static final int MAX_CHAPTER=3;
     public static final int MAX_EPISODE=10;
     public static final String EPISODE="episode", CHAPTER="chapter", HIGHEST_SCORE="highest_score";
-    public static Map<String, Integer> loadData() throws FileNotFoundException{
-        Map<String, Integer> data = new HashMap<String, Integer>();
-        Scanner file = new Scanner(new File(DEFAULT_SAVED_PATH));
-        while(file.hasNextLine()){
-            String[] d = file.nextLine().split(":");
-            data.put(d[0], Integer.valueOf(d[1]));
+    public static Map<String, Integer> data = loadData();
+    public static Map<String, Integer> loadData(){
+        try{
+            Scanner file = new Scanner(new File(DEFAULT_SAVED_PATH));
+            while(file.hasNextLine()){
+                String[] d = file.nextLine().split(":");
+                data.put(d[0], Integer.valueOf(d[1]));
+            }
+        }
+        catch(FileNotFoundException e){
+            System.out.println(e);
         }
         return data;
     }
