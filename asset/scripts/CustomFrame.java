@@ -3,13 +3,12 @@ package asset.scripts;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
-
-import javax.swing.*;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.*;
 
 public class CustomFrame extends JFrame{
     private String title = "Game Title";
@@ -52,22 +51,20 @@ public class CustomFrame extends JFrame{
         start.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-                
+                chapterMenu();
             }
         });
 
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/25)));
 
-        // create chapter button
-        CustomButton chapter = new CustomButton("Chapter");
-        getContentPane().add(chapter);
-        chapter.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        chapter.setFontSize(50);
-        chapter.addActionListener(new ActionListener() {
+        // create endless button
+        CustomButton endless = new CustomButton("Endless");
+        getContentPane().add(endless);
+        endless.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        endless.setFontSize(50);
+        endless.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
                 
             }
         });
@@ -82,8 +79,13 @@ public class CustomFrame extends JFrame{
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-                
+                int choice = JOptionPane.showConfirmDialog(exit, "Are you sure?");
+                switch(choice){
+                    case JOptionPane.YES_OPTION -> {
+                        savedData();
+                        System.exit(0);
+                    }
+                }
             }
         });
 
@@ -117,6 +119,13 @@ public class CustomFrame extends JFrame{
             }
             chapter.setFontSize(50);
             chapter.setButtonSize(0.3, 1);
+            chapter.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int id = i;
+                    episodeMenu(id+1);
+                }
+            });
             if(i<Default.MAX_CHAPTER-1) container.add(Box.createRigidArea(new Dimension(getContentPane().getHeight()/10, 0)));
         }
 
@@ -127,11 +136,17 @@ public class CustomFrame extends JFrame{
         getContentPane().add(exit);
         exit.setFontSize(50);
         exit.setAlignmentX(JButton.CENTER_ALIGNMENT);
-
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainMenu();
+            }
+        });
+        
         revalidate();
         repaint();
     }
-    public void episodeMenu(){
+    public void episodeMenu(int e){
         clearScreen();
 
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
@@ -166,15 +181,22 @@ public class CustomFrame extends JFrame{
         getContentPane().add(back);
         back.setFontSize(50);
         back.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chapterMenu();
+            }
+        });
     }
     public void clearScreen(){
         getContentPane().removeAll();
         getContentPane().revalidate();
         getContentPane().repaint();
     }
-    public void exit(){
+    public boolean savedData(){
         
+
+
+        return false;
     }
 }
-
-
