@@ -2,8 +2,11 @@ package asset.scripts;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.GridLayout;
+import java.awt.Panel;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,6 +19,7 @@ import java.util.HashMap;
 public class CustomFrame extends JFrame{
     private String title = "Game Title";
     private int width=800, height=600;
+    private static Map<String, Integer> data = new HashMap<String, Integer>();
     public CustomFrame(){
         DEFAULT_SETTING();
     }
@@ -32,6 +36,14 @@ public class CustomFrame extends JFrame{
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice gd = ge.getDefaultScreenDevice();
         gd.setFullScreenWindow(this);
+        try{
+            data = Default.loadData();
+        }
+        catch(FileNotFoundException e){
+            System.out.println("No saved.txt"); 
+            System.out.println(e);
+            return; 
+        }
     }
     public void mainMenu(){
         clearScreen();
@@ -95,22 +107,19 @@ public class CustomFrame extends JFrame{
     public void chapterMenu(){
         clearScreen();
 
+        getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/5)));
+
+        CustomLabel title = new CustomLabel(this.title);
+        getContentPane().add(title);
+        title.setFontSize(20);
+        title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
 
         CustomPanel container = new CustomPanel();
         getContentPane().add(container);
-        container.setLayout(new BoxLayout(container, MAXIMIZED_BOTH));
+        container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
         container.setPanelSize(0.5, 0.2);
-        
-        Map<String, Integer> data = new HashMap<String, Integer>();
-        try{
-            data = Default.loadData();
-        }
-        catch(FileNotFoundException e){
-            System.out.println("No saved.txt"); 
-            System.out.println(e);
-            return; 
-        }
         for(int i=0; i<Default.MAX_CHAPTER; i++){
             CustomButton chapter = new CustomButton(i+1);
             container.add(chapter);
@@ -122,8 +131,9 @@ public class CustomFrame extends JFrame{
             }
             chapter.setFontSize(50);
             chapter.setButtonSize(0.3, 1);
-            if(i<Default.MAX_CHAPTER-1) container.add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
+            if(i<Default.MAX_CHAPTER-1) container.add(Box.createRigidArea(new Dimension(getContentPane().getHeight()/10, 0)));
         }
+
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
 
         // create exit button
@@ -135,9 +145,47 @@ public class CustomFrame extends JFrame{
         revalidate();
         repaint();
     }
+    public void episodeMenu(){
+        clearScreen();
+
+        getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
+
+        CustomLabel title = new CustomLabel(Default.CHAPTER + " " + (data.get(Default.CHAPTER)));
+        getContentPane().add(title);
+        title.setFontSize(20);
+        title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        
+        getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/20)));
+
+        CustomPanel group = new CustomPanel();
+        getContentPane().add(group);
+        group.setPanelSize(0.8, 0.5);
+        group.setLayout(new GridLayout(2, 5));
+        for(int i=0; i<Default.MAX_EPISODE; i++){
+            CustomButton episode = new CustomButton(i+1);
+            group.add(episode);
+            episode.setFontSize(50);
+            episode.setButtonSize(0.2, 1);
+            if(i<data.get(Default.EPISODE)){
+                episode.setBackground(Color.WHITE);
+            }
+            else{
+                episode.setBackground(Color.GRAY);
+            }
+        }
+
+        getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
+
+        CustomButton back = new CustomButton("Back");
+        getContentPane().add(back);
+        back.setFontSize(50);
+        back.setAlignmentX(JButton.CENTER_ALIGNMENT);
+    }
     public void clearScreen(){
         this.getContentPane().removeAll();
         this.getContentPane().revalidate();
         this.getContentPane().repaint();
     }
 }
+
+
