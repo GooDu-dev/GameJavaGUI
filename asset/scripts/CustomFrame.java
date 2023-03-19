@@ -87,6 +87,7 @@ public class CustomFrame extends JFrame{
                 switch(choice){
                     case JOptionPane.YES_OPTION:{
                         Default.savedData(Default.data);
+                        
                         System.exit(0);
                     }
                 }

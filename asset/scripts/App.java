@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -54,12 +56,22 @@ public class App {
         CustomPanel field = new CustomPanel();
         frame.getContentPane().add(field);
         field.setLayout(new BoxLayout(field, BoxLayout.X_AXIS));
-        field.setPanelSize(0.9, 0.5);
+        field.setPanelSize(0.6, 0.5);
         field.setAlignmentX(JPanel.CENTER_ALIGNMENT);
 
-        Player player = new Player(100, "", Type.ObjectType.Player);
-        Enemy enemy = new Enemy(100, "", Type.ObjectType.Enemy);
+        // create player
+        Player player = new Player(3, "", Type.ObjectType.Player);
+        field.add(player);
+        player.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 
+        // create enemy
+        Enemy enemy = new Enemy(3, "", Type.ObjectType.Enemy);
+        field.add(enemy);
+        enemy.setAlignmentX(JLabel.RIGHT_ALIGNMENT);
+        
+        CustomPanel board = new CustomPanel();
+        board.setLayout(new BoxLayout(board, BoxLayout.Y_AXIS));
+        
 
     }
     public void countdown(int s){

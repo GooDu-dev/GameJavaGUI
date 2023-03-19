@@ -13,7 +13,7 @@ public class Default {
     public static final String DEFAULT_SAVED_PATH = "./asset/saved.txt";
     public static final String DEFAULT_WORD_PATH = "./asset/words.txt";
     public static final int MAX_CHAPTER=2;
-    public static final int MAX_EPISODE=5;
+    public static final int MAX_EPISODE=6;
     public static final String EPISODE="episode", CHAPTER="chapter", HIGHEST_SCORE="highest_score";
     public static Map<String, Integer> data = loadData();
     public static Map<String, Integer> loadData(){
@@ -23,13 +23,11 @@ public class Default {
             while(file.hasNextLine()){
                 String[] d = file.nextLine().split(":");
                 data.put(d[0], Integer.valueOf(d[1]));
-                System.out.println(d);
             }
         }
         catch(FileNotFoundException e){
             System.out.println("Fail to load");
         }
-        System.out.println(data);
         return data;
     }
     public static void savedData(Map<String, Integer> data){
