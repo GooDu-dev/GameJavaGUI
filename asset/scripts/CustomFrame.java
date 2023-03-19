@@ -2,12 +2,13 @@ package asset.scripts;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-
 import javax.swing.BorderFactory;
 
 public class CustomFrame extends JFrame{
@@ -21,6 +22,7 @@ public class CustomFrame extends JFrame{
         DEFAULT_SETTING();
     }
     public void DEFAULT_SETTING(){
+        setIconImage(Toolkit.getDefaultToolkit().getImage("asset/picture/logo/game.png"));
         setTitle(title);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
@@ -35,14 +37,18 @@ public class CustomFrame extends JFrame{
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/5)));
         // create title
         CustomLabel title = new CustomLabel(this.title);
+        Font font = new Font("Arcade Classic",1, 70);
+        title.setFont(font);
         getContentPane().add(title);
-        title.setFontSize(25);
         title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
         // create start button
         CustomButton start = new CustomButton("asset/picture/button/play-button.png");
         getContentPane().add(start);
-        start.setSize(300, 120);
+        // start.setButtonSize(0.001, 0.0006);
+        start.setOpaque(false);
+        start.setContentAreaFilled(false);
+        start.setBorderPainted(false);
         start.setAlignmentX(JButton.CENTER_ALIGNMENT);
         start.addActionListener(new ActionListener(){
             @Override
@@ -52,34 +58,36 @@ public class CustomFrame extends JFrame{
         });
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/25)));
         // create endless button
-        CustomButton endless = new CustomButton("Endless");
-        getContentPane().add(endless);
-        endless.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        endless.setFontSize(50);
-        endless.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
-        getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/25)));
-        // create exit button
-        CustomButton exit = new CustomButton("Exit");
-        getContentPane().add(exit);
-        exit.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        exit.setFontSize(50);
-        // exit.addActionListener(new ActionListener() {
+        // CustomButton endless = new CustomButton("Endless");
+        // getContentPane().add(endless);
+        // endless.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        // endless.setFontSize(50);
+        // endless.addActionListener(new ActionListener() {
         //     @Override
         //     public void actionPerformed(ActionEvent e) {
-        //         int choice = JOptionPane.showConfirmDialog(exit, "Are you sure?");
-        //         switch(choice){
-        //             case JOptionPane.YES_OPTION -> {
-        //                 Default.savedData(Default.data);
-        //                 System.exit(0);
-        //             }
-        //         }
+                
         //     }
         // });
+        //getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/25)));
+        // create exit button
+        CustomButton exit = new CustomButton("asset/picture/button/exit-button.png");
+        getContentPane().add(exit);
+        exit.setOpaque(false);
+        exit.setContentAreaFilled(false);
+        exit.setBorderPainted(false);
+        exit.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int choice = JOptionPane.showConfirmDialog(exit, "Are you sure?");
+                switch(choice){
+                    case JOptionPane.YES_OPTION:{
+                        Default.savedData(Default.data);
+                        System.exit(0);
+                    }
+                }
+            }
+        });
         revalidate();
         repaint();
     }

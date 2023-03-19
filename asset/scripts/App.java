@@ -24,7 +24,6 @@ public class App {
     }
     public App(String title){
         App.title = title;
-        // frame.setIconImage(Toolkit.getDefaultToolkit().getImage(""));
     }
     public void run(){
         frame = new CustomFrame(App.title);
