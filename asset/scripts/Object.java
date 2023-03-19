@@ -1,7 +1,5 @@
 package asset.scripts;
 
-import asset.nonScript.Type;
-
 import javax.swing.*;
 
 public abstract class Object {

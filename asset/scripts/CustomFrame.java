@@ -46,8 +46,8 @@ public class CustomFrame extends JFrame{
         // create start button
         CustomButton start = new CustomButton("asset/picture/button/play-button.png");
         getContentPane().add(start);
+        start.setSize(100, 60);
         start.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        start.setFontSize(50);
         start.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -1,8 +1,5 @@
 package asset.scripts;
 
-import asset.nonScript.Type;
-import asset.nonScript.attackable;
-
 import javax.swing.*;
 
 public class Player extends Object implements attackable{
