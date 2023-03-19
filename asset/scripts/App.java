@@ -6,8 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,7 +16,6 @@ import java.awt.GridLayout;
 import java.util.Map;
 import java.util.Set;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -46,7 +43,6 @@ public class App {
         frame.setResizable(false);
         frame.mainMenu();
     }
-<<<<<<< HEAD
     public void wordBeforeStart(String w){
         frame.clearScreen();
         JLabel word = new JLabel(w);
@@ -115,15 +111,6 @@ public class App {
         scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
     }
     
-=======
-public class WordGame extends JFrame {
-
-    private String word;
-    private Set<String> uniqueLetters;
-    private Map<String, JButton> buttonMap;
-    private JTextArea selectedLettersTextArea;
-
->>>>>>> main
     public void showWords(String word) {
         this.uniqueLetters = new HashSet<String>(Arrays.asList(word.split("")));
         this.buttonMap = new HashMap<String, JButton>();
