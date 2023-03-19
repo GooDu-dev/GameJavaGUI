@@ -48,7 +48,7 @@ public class App {
         JLabel word = new JLabel(w);
         frame.getContentPane().add(word);
     }
-    public void chapterStage(String w){
+    public static void chapterStage(int level){
         frame.clearScreen();
         JLabel timer = new JLabel("Timer : ");
         Timer t = new Timer(1000, new ActionListener(){
