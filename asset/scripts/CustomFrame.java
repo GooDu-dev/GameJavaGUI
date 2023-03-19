@@ -3,23 +3,17 @@ package asset.scripts;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
-import java.awt.Panel;
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.util.Map;
-import java.util.HashMap;
 
 public class CustomFrame extends JFrame{
     private String title = "Game Title";
     private int width=800, height=600;
-    private static Map<String, Integer> data = new HashMap<String, Integer>();
     public CustomFrame(){
         DEFAULT_SETTING();
     }
@@ -28,22 +22,14 @@ public class CustomFrame extends JFrame{
         DEFAULT_SETTING();
     }
     public void DEFAULT_SETTING(){
-        this.setTitle(title);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setVisible(true);
-        this.setSize(width, height);
+        setTitle(title);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
+        setSize(width, height);
         // set frame to full screen
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice gd = ge.getDefaultScreenDevice();
         gd.setFullScreenWindow(this);
-        try{
-            data = Default.loadData();
-        }
-        catch(FileNotFoundException e){
-            System.out.println("No saved.txt"); 
-            System.out.println(e);
-            return; 
-        }
     }
     public void mainMenu(){
         clearScreen();
@@ -123,7 +109,7 @@ public class CustomFrame extends JFrame{
         for(int i=0; i<Default.MAX_CHAPTER; i++){
             CustomButton chapter = new CustomButton(i+1);
             container.add(chapter);
-            if(i<data.get(Default.CHAPTER)){
+            if(i<Default.data.get(Default.CHAPTER)){
                 chapter.setBackground(Color.WHITE);
             }
             else{
@@ -150,7 +136,7 @@ public class CustomFrame extends JFrame{
 
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
 
-        CustomLabel title = new CustomLabel(Default.CHAPTER + " " + (data.get(Default.CHAPTER)));
+        CustomLabel title = new CustomLabel(Default.CHAPTER + " " + (Default.data.get(Default.CHAPTER)));
         getContentPane().add(title);
         title.setFontSize(20);
         title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
@@ -166,7 +152,7 @@ public class CustomFrame extends JFrame{
             group.add(episode);
             episode.setFontSize(50);
             episode.setButtonSize(0.2, 1);
-            if(i<data.get(Default.EPISODE)){
+            if(i<Default.data.get(Default.EPISODE)){
                 episode.setBackground(Color.WHITE);
             }
             else{
@@ -182,9 +168,12 @@ public class CustomFrame extends JFrame{
         back.setAlignmentX(JButton.CENTER_ALIGNMENT);
     }
     public void clearScreen(){
-        this.getContentPane().removeAll();
-        this.getContentPane().revalidate();
-        this.getContentPane().repaint();
+        getContentPane().removeAll();
+        getContentPane().revalidate();
+        getContentPane().repaint();
+    }
+    public void exit(){
+        
     }
 }
 

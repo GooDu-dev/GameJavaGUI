@@ -92,17 +92,6 @@ public class App {
             frame.mainMenu();
         }
     }
-    public boolean loadData(){
-            try (Scanner file = new Scanner(new File("./asset/saved.txt"))) {
-                while(file.hasNextLine()){
-                    String[] text = file.nextLine().split(":");
-                    data.put(text[0], Integer.valueOf(text[1]));
-                }
-            } catch (NumberFormatException | FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            return true;
-    }
     /* public void showLetters(){ I'm working don't delete please
         String [] letter = new String[10];
         for (String c : letter) {
