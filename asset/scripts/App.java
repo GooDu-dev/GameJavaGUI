@@ -1,9 +1,11 @@
 package asset.scripts;
 
+import asset.scripts.inteface.Type.ObjectType;
 import asset.scripts.CustomFrame;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -62,11 +64,14 @@ public class App {
 
         CustomPanel field = new CustomPanel();
         frame.getContentPane().add(field);
-        field.setLayout(new BoxLayout(field, BoxLayout.Y_AXIS));
+        field.setLayout(new BoxLayout(field, BoxLayout.X_AXIS));
         field.setPanelSize(0.9, 0.5);
         field.setAlignmentX(JPanel.CENTER_ALIGNMENT);
 
-        
+        Player player = new Player(100, "", ObjectType.Player);
+        Enemy enemy = new Enemy(100, "", ObjectType.Enemy);
+
+
     }
     public void countdown(int s){
         final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);

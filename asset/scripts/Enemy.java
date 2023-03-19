@@ -1,7 +1,7 @@
 package asset.scripts;
-import asset.nonScript.Type;
-import asset.nonScript.attackable;
-public class Enemy extends Object implements Default, attackable{
+import asset.scripts.inteface.Type;
+import asset.scripts.inteface.attackable;
+public class Enemy extends Object implements attackable{
     public Enemy(int hp, String image_path, Type.ObjectType type){
         super(hp, image_path, type);
     }

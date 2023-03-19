@@ -1,6 +1,7 @@
 package asset.scripts;
 
 import javax.swing.*;
+import asset.scripts.inteface.*;
 
 public abstract class Object {
     private int hp;
