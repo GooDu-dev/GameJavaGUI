@@ -1,6 +1,7 @@
 package asset.scripts;
 
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,5 +43,17 @@ public class Default {
             System.out.println("Saved Fail");
             System.out.println(e);
         }
+    }
+    public static ArrayList<String> fetchWords(){
+        ArrayList<String> wordsArray = new ArrayList<>();
+        try{
+            Scanner words = new Scanner(new File(DEFAULT_WORD_PATH));
+            while(words.hasNextLine()){
+                wordsArray.add(words.nextLine());
+            }
+        } catch(FileNotFoundException e){
+            System.out.println("Fail to fetch");
+        }
+        return wordsArray;
     }
 }
