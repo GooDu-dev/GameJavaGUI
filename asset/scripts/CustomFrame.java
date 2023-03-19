@@ -37,8 +37,7 @@ public class CustomFrame extends JFrame{
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/5)));
         // create title
         CustomLabel title = new CustomLabel(this.title);
-        Font font = new Font("Arcade Classic",1, 70);
-        title.setFont(font);
+        title.setFont(new Font(Font.SERIF,Font.BOLD, 70));
         getContentPane().add(title);
         title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
