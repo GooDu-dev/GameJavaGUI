@@ -24,9 +24,9 @@ public class App {
     private static String title="Game Title";
     private Set<String> uniqueAlphabet;
     private Map<String, JButton> buttonMap;
+    private static int time = 0;
 
     // Backend
-    private int chapter=0, episode=0, highest_score=0;
     private String word;
     public App(){
 
@@ -47,19 +47,26 @@ public class App {
     }
     public void chapterStage(String w){
         frame.clearScreen();
-        
-        JLabel countdown = new JLabel("Timer :");
-        countdown.setFont(new Font(countdown.getFont().getName(),countdown.getFont().getStyle(), 30));
-        countdown.setForeground(Color.white);
-        
-        JPanel upStage = new JPanel();
-        JPanel downStage = new JPanel();
-        upStage.setBackground(Color.DARK_GRAY);
-        downStage.setBackground(Color.BLUE);
-        upStage.add(countdown);
+        JLabel timer = new JLabel("Timer : ");
+        Timer t = new Timer(1000, new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                time++;
+                timer.setText("Timer : "+time);
+            }
+        });
+        frame.getContentPane().add(timer);
+        timer.setFont(new Font(timer.getFont().getName(), timer.getFont().getStyle(), frame.getContentPane().getWidth()/50));
+        timer.setAlignmentX(JLabel.RIGHT_ALIGNMENT);
+        t.start();
 
-        frame.add(upStage);
-        frame.add(downStage);
+        CustomPanel field = new CustomPanel();
+        frame.getContentPane().add(field);
+        field.setLayout(new BoxLayout(field, BoxLayout.Y_AXIS));
+        field.setPanelSize(0.9, 0.5);
+        field.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+
+        
     }
     public void countdown(int s){
         final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -75,22 +82,6 @@ public class App {
         };
         scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
     }
-    // public void confirmExit() {
-    //     JLabel message = new JLabel("Are you sure you want to exit?");
-    //     message.setHorizontalAlignment(JLabel.CENTER);
-    //     int choice = JOptionPane.showConfirmDialog(frame, message, null, JOptionPane.YES_NO_OPTION);
-    //     if (choice == JOptionPane.YES_OPTION) {
-    //         System.exit(0);
-    //     }
-    // }    
-    // public void windowExitDuringGame() {
-    //     JLabel optionExit = new JLabel("Are you sure you want to go back to the main menu?");
-    //     optionExit.setHorizontalAlignment(JLabel.CENTER);
-    //     int option = JOptionPane.showConfirmDialog(frame, optionExit, null, JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
-    //     if (option == JOptionPane.YES_OPTION) {
-    //         frame.mainMenu();
-    //     }
-    // }
     
     public void ShowLetter(String word) {
         HashSet<String> uniqueAlphabet = new HashSet<String>(Arrays.asList(word.split("")));
