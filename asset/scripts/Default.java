@@ -1,6 +1,7 @@
 package asset.scripts;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,15 +17,17 @@ public class Default {
     public static final String EPISODE="episode", CHAPTER="chapter", HIGHEST_SCORE="highest_score";
     public static Map<String, Integer> data = loadData();
     public static Map<String, Integer> loadData(){
+        Map<String, Integer> data = new HashMap<String, Integer>();
         try{
             Scanner file = new Scanner(new File(DEFAULT_SAVED_PATH));
             while(file.hasNextLine()){
                 String[] d = file.nextLine().split(":");
                 data.put(d[0], Integer.valueOf(d[1]));
+                System.out.println(d);
             }
         }
         catch(FileNotFoundException e){
-            System.out.println(e);
+            System.out.println("Fail to load");
         }
         System.out.println(data);
         return data;
