@@ -4,6 +4,7 @@ import asset.nonScript.Type;
 import asset.nonScript.attackable;
 
 import javax.swing.*;
+import asset.scripts.inteface.*;
 
 public class Player extends Object implements attackable{
 

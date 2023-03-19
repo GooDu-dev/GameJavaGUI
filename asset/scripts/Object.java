@@ -3,6 +3,7 @@ package asset.scripts;
 import asset.nonScript.Type;
 
 import javax.swing.*;
+import asset.scripts.inteface.*;
 
 public abstract class Object {
     private int hp;

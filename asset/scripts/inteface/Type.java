@@ -1,4 +1,4 @@
-package asset.nonScript;
+package asset.scripts.inteface;
 
 public class Type{
     public enum ObjectType{
