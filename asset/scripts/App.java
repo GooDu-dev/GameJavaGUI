@@ -70,9 +70,21 @@ public class App {
         enemy.setAlignmentX(JLabel.RIGHT_ALIGNMENT);
         
         CustomPanel board = new CustomPanel();
+        frame.getContentPane().add(board);
         board.setLayout(new BoxLayout(board, BoxLayout.Y_AXIS));
         
 
+        CustomPanel h_container = new CustomPanel();
+        frame.getContentPane().add(h_container);
+        h_container.setLayout(new BoxLayout(h_container, BoxLayout.X_AXIS));
+        for(int i=0; i<player.getHp(); i++){
+            CustomLabel heart = new CustomLabel();
+            frame.getContentPane().add(heart);
+            if(i < player.getHp()-1){
+                h_container.add(Box.createRigidArea(new Dimension((int)(h_container.getWidth()*0.1), 0)))
+            }
+        }
+        
     }
     public void countdown(int s){
         final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
