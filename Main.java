@@ -1,5 +1,4 @@
 import asset.scripts.App;
-import asset.scripts.Frame;
 
 public class Main{
     public static void main(String[] args) {

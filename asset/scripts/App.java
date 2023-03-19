@@ -1,5 +1,6 @@
 package asset.scripts;
 
+import asset.scripts.CustomFrame;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -15,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 public class App {
     // Frontend
-    private static Frame frame;
+    private static CustomFrame frame;
     private static String title="Game Title";
     private JLabel game_title;
     private JLabel option_exit;
@@ -34,14 +35,14 @@ public class App {
         loadData();
     }
     public void run(){
-        frame = new Frame("Wordy Words");
+        frame = new CustomFrame(App.title);
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.setResizable(false);
-        mainMenu();
+        frame.chapterMenu();;
         //selectChapterMenu();
     }
     public void mainMenu(){
-        ((Frame)frame).clearScreen();
+        frame.clearScreen();
         frame.getContentPane().add(Box.createRigidArea(new Dimension(0, frame.getContentPane().getHeight()/5)));
         
         // create game title text
@@ -84,7 +85,7 @@ public class App {
         frame.repaint();
     }
     public void selectChapterMenu(){
-        ((Frame)frame).clearScreen();
+        frame.clearScreen();
 
         frame.getContentPane().add(Box.createRigidArea(new Dimension(0, frame.getContentPane().getHeight()/5)));
 
@@ -152,7 +153,7 @@ public class App {
         }
     }
     public void selectEpisodeMenu(){
-        ((Frame)frame).clearScreen();
+        frame.clearScreen();
 
         frame.getContentPane().add(Box.createRigidArea(new Dimension(0, frame.getContentPane().getHeight()/10)));
 
