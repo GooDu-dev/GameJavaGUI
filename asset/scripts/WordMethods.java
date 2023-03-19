@@ -2,6 +2,7 @@ package asset.scripts;
 import java.io.File;
 import java.util.*;
 import java.io.*;
+
 public class WordMethods{
     private ArrayList<String> words = new ArrayList<>();
     private Integer currentLevel = 0;

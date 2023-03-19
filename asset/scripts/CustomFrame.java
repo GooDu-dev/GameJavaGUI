@@ -6,8 +6,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
+
+import javax.swing.BorderFactory;
 
 public class CustomFrame extends JFrame{
     private String title = "Game Title";
@@ -31,21 +32,17 @@ public class CustomFrame extends JFrame{
     }
     public void mainMenu(){
         clearScreen();
-
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/5)));
-
         // create title
         CustomLabel title = new CustomLabel(this.title);
         getContentPane().add(title);
         title.setFontSize(25);
         title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
-
         // create start button
         CustomButton start = new CustomButton("asset/picture/button/play-button.png");
         getContentPane().add(start);
-        start.setSize(100, 60);
+        start.setSize(300, 120);
         start.setAlignmentX(JButton.CENTER_ALIGNMENT);
         start.addActionListener(new ActionListener(){
             @Override
@@ -53,9 +50,7 @@ public class CustomFrame extends JFrame{
                 chapterMenu();
             }
         });
-
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/25)));
-
         // create endless button
         CustomButton endless = new CustomButton("Endless");
         getContentPane().add(endless);
@@ -67,9 +62,7 @@ public class CustomFrame extends JFrame{
                 
             }
         });
-
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/25)));
-
         // create exit button
         CustomButton exit = new CustomButton("Exit");
         getContentPane().add(exit);
@@ -87,15 +80,12 @@ public class CustomFrame extends JFrame{
         //         }
         //     }
         // });
-
         revalidate();
         repaint();
     }
     public void chapterMenu(){
         clearScreen();
-
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/5)));
-
         CustomLabel title = new CustomLabel(this.title);
         getContentPane().add(title);
         title.setFontSize(20);
@@ -106,8 +96,10 @@ public class CustomFrame extends JFrame{
         CustomPanel container = new CustomPanel();
         getContentPane().add(container);
         container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
-        container.setPanelSize(0.5, 0.2);
+        container.setPanelSize(0.5, 0.4);
+        container.setBorder(BorderFactory.createLineBorder(Color.RED));
         for(int i=0; i<Default.MAX_CHAPTER; i++){
+            System.out.println(i);
             int id = i;
             CustomButton chapter = new CustomButton(i+1);
             container.add(chapter);
@@ -117,8 +109,8 @@ public class CustomFrame extends JFrame{
             else{
                 chapter.setBackground(Color.GRAY);
             }
-            chapter.setFontSize(50);
-            chapter.setButtonSize(0.3, 1);
+            chapter.setFontSize(25);
+            chapter.setButtonSize(0.45, 1);
             // chapter.addActionListener(new ActionListener() {
             //     @Override
             //     public void actionPerformed(ActionEvent e) {

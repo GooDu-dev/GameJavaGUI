@@ -1,13 +1,9 @@
 package asset.scripts;
 
-import asset.nonScript.Type;
-import asset.nonScript.attackable;
-
 import javax.swing.*;
 import asset.scripts.inteface.*;
 
 public class Player extends Object implements attackable{
-
     private int hp=0;
     private ImageIcon icon = new ImageIcon(Default.DEFAULT_IMAGE_PATH, "Default Image Path");
     private Type.ObjectType type = Type.ObjectType.Player;
@@ -15,19 +11,15 @@ public class Player extends Object implements attackable{
     public Player(int hp, String image_path, Type.ObjectType type){
         super(hp, image_path, type);
     }
-
     public int getHp() {
         return hp;
     }
-
     public ImageIcon getIcon() {
         return icon;
     }
-
     public void setHp(int hp) {
         this.hp = hp;
     }
-
     public void setIcon(ImageIcon icon) {
         this.icon = icon;
     }

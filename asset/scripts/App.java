@@ -1,8 +1,9 @@
 package asset.scripts;
 
+import asset.scripts.inteface.Type;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -23,6 +24,7 @@ public class App {
     }
     public App(String title){
         App.title = title;
+        // frame.setIconImage(Toolkit.getDefaultToolkit().getImage(""));
     }
     public void run(){
         frame = new CustomFrame(App.title);
@@ -56,8 +58,8 @@ public class App {
         field.setPanelSize(0.9, 0.5);
         field.setAlignmentX(JPanel.CENTER_ALIGNMENT);
 
-        Player player = new Player(100, "", ObjectType.Player);
-        Enemy enemy = new Enemy(100, "", ObjectType.Enemy);
+        Player player = new Player(100, "", Type.ObjectType.Player);
+        Enemy enemy = new Enemy(100, "", Type.ObjectType.Enemy);
 
 
     }
