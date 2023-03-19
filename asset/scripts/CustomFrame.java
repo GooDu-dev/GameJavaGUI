@@ -184,17 +184,12 @@ public class CustomFrame extends JFrame{
             else{
                 episode.setBackground(Color.GRAY);
             }
-            switch(e){
-                case 1 -> {
-                    // set episode in chapter 1 icon
+            episode.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    wordBeforeStart();
                 }
-                case 2 -> {
-                    // set episode in chapter 2 icon
-                }
-                case 3 -> {
-                    // set episode in chapter 3 icon
-                }
-            }
+            });
         }
 
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
