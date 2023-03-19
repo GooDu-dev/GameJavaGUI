@@ -109,6 +109,7 @@ public class CustomFrame extends JFrame{
         container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
         container.setPanelSize(0.5, 0.2);
         for(int i=0; i<Default.MAX_CHAPTER; i++){
+            int id = i;
             CustomButton chapter = new CustomButton(i+1);
             container.add(chapter);
             if(i<Default.data.get(Default.CHAPTER)){
@@ -122,7 +123,6 @@ public class CustomFrame extends JFrame{
             chapter.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    int id = i;
                     episodeMenu(id+1);
                 }
             });

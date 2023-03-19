@@ -103,7 +103,6 @@ public class App {
                 @Override
                 public void actionPerformed(ActionEvent e){
                     if(e.getSource() == charButton){
-                        String uniqueAlphabet;
                         if(uniqueAlphabet.contains(letter)){
                             charButton.setBackground(Color.GREEN); 
                             uniqueAlphabet.remove(letter);
