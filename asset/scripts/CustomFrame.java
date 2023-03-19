@@ -44,7 +44,7 @@ public class CustomFrame extends JFrame{
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
 
         // create start button
-        CustomButton start = new CustomButton("/picture/button/play-button.png");
+        CustomButton start = new CustomButton("asset/picture/button/play-button.png");
         getContentPane().add(start);
         start.setAlignmentX(JButton.CENTER_ALIGNMENT);
         start.setFontSize(50);
@@ -76,18 +76,18 @@ public class CustomFrame extends JFrame{
         getContentPane().add(exit);
         exit.setAlignmentX(JButton.CENTER_ALIGNMENT);
         exit.setFontSize(50);
-        exit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int choice = JOptionPane.showConfirmDialog(exit, "Are you sure?");
-                switch(choice){
-                    case JOptionPane.YES_OPTION -> {
-                        Default.savedData(Default.data);
-                        System.exit(0);
-                    }
-                }
-            }
-        });
+        // exit.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         int choice = JOptionPane.showConfirmDialog(exit, "Are you sure?");
+        //         switch(choice){
+        //             case JOptionPane.YES_OPTION -> {
+        //                 Default.savedData(Default.data);
+        //                 System.exit(0);
+        //             }
+        //         }
+        //     }
+        // });
 
         revalidate();
         repaint();
@@ -120,12 +120,12 @@ public class CustomFrame extends JFrame{
             }
             chapter.setFontSize(50);
             chapter.setButtonSize(0.3, 1);
-            chapter.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    episodeMenu(id+1);
-                }
-            });
+            // chapter.addActionListener(new ActionListener() {
+            //     @Override
+            //     public void actionPerformed(ActionEvent e) {
+            //         episodeMenu(id+1);
+            //     }
+            // });
             if(i<Default.MAX_CHAPTER-1) container.add(Box.createRigidArea(new Dimension(getContentPane().getHeight()/10, 0)));
         }
 
@@ -146,59 +146,59 @@ public class CustomFrame extends JFrame{
         revalidate();
         repaint();
     }
-    public void episodeMenu(int e){
-        clearScreen();
+    // public void episodeMenu(int e){
+    //     clearScreen();
 
-        getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
+    //     getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
 
-        CustomLabel title = new CustomLabel(Default.CHAPTER + " " + (Default.data.get(Default.CHAPTER)));
-        getContentPane().add(title);
-        title.setFontSize(20);
-        title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+    //     CustomLabel title = new CustomLabel(Default.CHAPTER + " " + (Default.data.get(Default.CHAPTER)));
+    //     getContentPane().add(title);
+    //     title.setFontSize(20);
+    //     title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         
-        getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/20)));
+    //     getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/20)));
 
-        CustomPanel group = new CustomPanel();
-        getContentPane().add(group);
-        group.setPanelSize(0.8, 0.5);
-        group.setLayout(new GridLayout(2, 5));
-        for(int i=0; i<Default.MAX_EPISODE; i++){
-            CustomButton episode = new CustomButton(i+1);
-            group.add(episode);
-            episode.setFontSize(50);
-            episode.setButtonSize(0.2, 1);
-            if(i<Default.data.get(Default.EPISODE)){
-                episode.setBackground(Color.WHITE);
-            }
-            else{
-                episode.setBackground(Color.GRAY);
-            }
-            switch(e){
-                case 1 -> {
-                    // set episode in chapter 1 icon
-                }
-                case 2 -> {
-                    // set episode in chapter 2 icon
-                }
-                case 3 -> {
-                    // set episode in chapter 3 icon
-                }
-            }
-        }
+    //     CustomPanel group = new CustomPanel();
+    //     getContentPane().add(group);
+    //     group.setPanelSize(0.8, 0.5);
+    //     group.setLayout(new GridLayout(2, 5));
+    //     for(int i=0; i<Default.MAX_EPISODE; i++){
+    //         CustomButton episode = new CustomButton(i+1);
+    //         group.add(episode);
+    //         episode.setFontSize(50);
+    //         episode.setButtonSize(0.2, 1);
+    //         if(i<Default.data.get(Default.EPISODE)){
+    //             episode.setBackground(Color.WHITE);
+    //         }
+    //         else{
+    //             episode.setBackground(Color.GRAY);
+    //         }
+    //         switch(e){
+    //             case 1 -> {
+    //                 // set episode in chapter 1 icon
+    //             }
+    //             case 2 -> {
+    //                 // set episode in chapter 2 icon
+    //             }
+    //             case 3 -> {
+    //                 // set episode in chapter 3 icon
+    //             }
+    //         }
+    //     }
 
-        getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
+    //     getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
 
-        CustomButton back = new CustomButton("Back");
-        getContentPane().add(back);
-        back.setFontSize(50);
-        back.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                chapterMenu();
-            }
-        });
-    }
+    //     CustomButton back = new CustomButton("Back");
+    //     getContentPane().add(back);
+    //     back.setFontSize(50);
+    //     back.setAlignmentX(JButton.CENTER_ALIGNMENT);
+    //     back.addActionListener(new ActionListener() {
+    //         @Override
+    //         public void actionPerformed(ActionEvent e) {
+    //             chapterMenu();
+    //         }
+    //     });
+    // }
     public void clearScreen(){
         getContentPane().removeAll();
         getContentPane().revalidate();
