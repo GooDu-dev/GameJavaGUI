@@ -1,10 +1,5 @@
 package asset.scripts;
 
-<<<<<<< HEAD
-=======
-import asset.scripts.inteface.Type.ObjectType;
-import asset.scripts.CustomFrame;
->>>>>>> main
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Window.Type;
@@ -59,16 +54,12 @@ public class App {
         frame.getContentPane().add(field);
         field.setLayout(new BoxLayout(field, BoxLayout.X_AXIS));
         field.setPanelSize(0.9, 0.5);
-<<<<<<< HEAD
-        field.setAlignmentX(JPanel.CENTER_ALIGNMENT);        
-=======
         field.setAlignmentX(JPanel.CENTER_ALIGNMENT);
 
         Player player = new Player(100, "", ObjectType.Player);
         Enemy enemy = new Enemy(100, "", ObjectType.Enemy);
 
 
->>>>>>> main
     }
     public void countdown(int s){
         final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
