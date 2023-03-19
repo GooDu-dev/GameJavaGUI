@@ -1,20 +1,12 @@
 package asset.scripts;
 
-import asset.scripts.CustomFrame;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.*;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -22,12 +14,9 @@ public class App {
     // Frontend
     private static CustomFrame frame;
     private static String title="Game Title";
-    private Set<String> uniqueAlphabet;
-    private Map<String, JButton> buttonMap;
     private static int time = 0;
 
     // Backend
-    private String word;
     public App(){
 
     }
@@ -64,9 +53,7 @@ public class App {
         frame.getContentPane().add(field);
         field.setLayout(new BoxLayout(field, BoxLayout.Y_AXIS));
         field.setPanelSize(0.9, 0.5);
-        field.setAlignmentX(JPanel.CENTER_ALIGNMENT);
-
-        
+        field.setAlignmentX(JPanel.CENTER_ALIGNMENT);        
     }
     public void countdown(int s){
         final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);

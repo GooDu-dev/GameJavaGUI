@@ -1,10 +1,6 @@
-import java.awt.*;
-import java.awt.event.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
-import javax.swing.*;
 
 public class Test {
     public static void main(String[] args) {
