@@ -13,6 +13,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.concurrent.*;
 import static java.util.concurrent.TimeUnit.SECONDS;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.util.Map;
+import java.util.Set;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class App {
     // Frontend
@@ -70,9 +80,21 @@ public class App {
         enemy.setAlignmentX(JLabel.RIGHT_ALIGNMENT);
         
         CustomPanel board = new CustomPanel();
+        frame.getContentPane().add(board);
         board.setLayout(new BoxLayout(board, BoxLayout.Y_AXIS));
         
 
+        CustomPanel h_container = new CustomPanel();
+        frame.getContentPane().add(h_container);
+        h_container.setLayout(new BoxLayout(h_container, BoxLayout.X_AXIS));
+        for(int i=0; i<player.getHp(); i++){
+            CustomLabel heart = new CustomLabel();
+            frame.getContentPane().add(heart);
+            if(i < player.getHp()-1){
+                h_container.add(Box.createRigidArea(new Dimension((int)(h_container.getWidth()*0.1), 0)))
+            }
+        }
+        
     }
     public void countdown(int s){
         final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -89,26 +111,43 @@ public class App {
         scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
     }
     
-    public void ShowLetter(String word) {
-        HashSet<String> uniqueAlphabet = new HashSet<String>(Arrays.asList(word.split("")));
-        HashMap<String, JButton> buttonMap = new HashMap<String, JButton>();
-        String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
-                            "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+public class WordGame extends JFrame {
 
-        for (String letter : alphabet){ // add a random button for each letter in the alphabet
+    private String word;
+    private Set<String> uniqueLetters;
+    private Map<String, JButton> buttonMap;
+    private JTextArea selectedLettersTextArea;
+
+    public void showWords(String word) {
+        this.word = word;
+        this.uniqueLetters = new HashSet<String>(Arrays.asList(word.split("")));
+        this.buttonMap = new HashMap<String, JButton>();
+        this.selectedLettersTextArea = new JTextArea(2, 20);
+
+        // create an array of all letters A-Z
+        String[] alphabet = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
+                "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+
+        // add a random button for each letter in the alphabet
+        for (String letter : alphabet) {
             JButton charButton = new JButton(letter);
-            if(uniqueAlphabet.contains(letter)) charButton.setBackground(Color.RED);
-            charButton.addActionListener(new ActionListener(){
+            if (uniqueLetters.contains(letter)) {
+                charButton.setBackground(Color.RED);
+            }
+            charButton.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e){
-                    if(e.getSource() == charButton){
-                        if(uniqueAlphabet.contains(letter)){
-                            charButton.setBackground(Color.GREEN); 
-                            uniqueAlphabet.remove(letter);
-                            if (uniqueAlphabet.isEmpty()) {
-                                JOptionPane.showMessageDialog(null, "Correct" + word + "!");
+                public void actionPerformed(ActionEvent e) {
+                    if (e.getSource() == charButton) {
+                        if (uniqueLetters.contains(letter)) {
+                            charButton.setBackground(Color.GREEN);
+                            removeLetter(letter);
+                            // add the selected letter
+                            selectedLettersTextArea.append(letter);
+                            selectedLettersTextArea.append(" ");
+                            if (uniqueLetters.isEmpty()) {
+                                JOptionPane.showMessageDialog(null, "Congratulations! You guessed the word " + word + "!");
                             }
-                        }else{
+                        } else {
                             charButton.setBackground(Color.GRAY);
                         }
                     }
@@ -116,10 +155,22 @@ public class App {
             });
             buttonMap.put(letter, charButton);
         }
-        //panel click button
+
+        // create a panel to click button
         JPanel buttonPanel = new JPanel(new GridLayout(2, 13));
         for (String letter : alphabet) {
             buttonPanel.add(buttonMap.get(letter));
         }
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.add(buttonPanel);
+        mainPanel.add(selectedLettersTextArea);
+        add(mainPanel);
+        pack();
+        setVisible(true);
     }
+    public void removeLetter(String letter) {
+        uniqueLetters.remove(letter);
+    }
+    
 }

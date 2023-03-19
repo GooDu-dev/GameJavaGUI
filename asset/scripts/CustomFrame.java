@@ -81,7 +81,9 @@ public class CustomFrame extends JFrame{
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int choice = JOptionPane.showConfirmDialog(exit, "Are you sure?");
+                JLabel message = new JLabel("Are you sure?");
+                message.setHorizontalAlignment(JLabel.CENTER);
+                int choice = JOptionPane.showConfirmDialog(exit, message, null, JOptionPane.YES_NO_OPTION);
                 switch(choice){
                     case JOptionPane.YES_OPTION:{
                         Default.savedData(Default.data);
@@ -206,4 +208,5 @@ public class CustomFrame extends JFrame{
         getContentPane().revalidate();
         getContentPane().repaint();
     }
+    
 }
