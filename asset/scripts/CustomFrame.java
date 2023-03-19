@@ -9,12 +9,22 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.awt.GridLayout;
+import asset.scripts.inteface.Type;
 
 import javax.swing.*;
 import javax.swing.BorderFactory;
 
 public class CustomFrame extends JFrame{
+    private static final TimeUnit SECONDS = null;
     private String title = "Game Title";
     private int width=800, height=600;
     public CustomFrame(){
@@ -81,13 +91,10 @@ public class CustomFrame extends JFrame{
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JLabel message = new JLabel("Are you sure?");
-                message.setHorizontalAlignment(JLabel.CENTER);
-                int choice = JOptionPane.showConfirmDialog(exit, message, null, JOptionPane.YES_NO_OPTION);
+                int choice = JOptionPane.showConfirmDialog(exit, "Are you sure?");
                 switch(choice){
                     case JOptionPane.YES_OPTION:{
                         Default.savedData(Default.data);
-                        
                         System.exit(0);
                     }
                 }
@@ -136,7 +143,7 @@ public class CustomFrame extends JFrame{
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
 
         // create exit button
-        CustomButton exit = new CustomButton("Exit");
+        CustomButton exit = new CustomButton("asset/picture/button/back-button.png");
         getContentPane().add(exit);
         exit.setFontSize(50);
         exit.setAlignmentX(JButton.CENTER_ALIGNMENT);
@@ -177,33 +184,18 @@ public class CustomFrame extends JFrame{
             else{
                 episode.setBackground(Color.GRAY);
             }
-            switch(e){
-                case 1 -> {
-                    // set episode in chapter 1 icon
-                    episode.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            App.chapterStage(1);
-                        }
-                    });
+            episode.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    wordBeforeStart();
                 }
-                case 2 -> {
-                    // set episode in chapter 2 icon
-                    episode.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            App.chapterStage(2);
-                        }
-                    });
-                }
-            }
+            });
         }
 
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
 
-        CustomButton back = new CustomButton("Back");
+        CustomButton back = new CustomButton("asset/picture/button/back-button.png");
         getContentPane().add(back);
-        back.setFontSize(50);
         back.setAlignmentX(JButton.CENTER_ALIGNMENT);
         back.addActionListener(new ActionListener() {
             @Override
@@ -212,10 +204,48 @@ public class CustomFrame extends JFrame{
             }
         });
     }
+    public void wordBeforeStart(){
+        clearScreen();
+        ArrayList<String> words = new ArrayList<>(Default.fetchWords());
+        JLabel word = new JLabel(words.get(new Random().nextInt(0, words.size())));
+        getContentPane().add(word);
+    }
+    public void ShowLetter(String word) {
+        HashSet<String> uniqueAlphabet = new HashSet<String>(Arrays.asList(word.split("")));
+        HashMap<String, JButton> buttonMap = new HashMap<String, JButton>();
+        String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+                            "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+
+        for (String letter : alphabet){ // add a random button for each letter in the alphabet
+            JButton charButton = new JButton(letter);
+            if(uniqueAlphabet.contains(letter)) charButton.setBackground(Color.RED);
+            charButton.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    if(e.getSource() == charButton){
+                        if(uniqueAlphabet.contains(letter)){
+                            charButton.setBackground(Color.GREEN); 
+                            uniqueAlphabet.remove(letter);
+                            if (uniqueAlphabet.isEmpty()) {
+                                JOptionPane.showMessageDialog(null, "Correct" + word + "!");
+                            }
+                        }else{
+                            charButton.setBackground(Color.GRAY);
+                        }
+                    }
+                }
+            });
+            buttonMap.put(letter, charButton);
+        }
+        //panel click button
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 13));
+        for (String letter : alphabet) {
+            buttonPanel.add(buttonMap.get(letter));
+        }
+    }
     public void clearScreen(){
         getContentPane().removeAll();
         getContentPane().revalidate();
         getContentPane().repaint();
     }
-    
 }

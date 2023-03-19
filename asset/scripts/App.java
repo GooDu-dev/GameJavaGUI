@@ -46,6 +46,7 @@ public class App {
         frame.setResizable(false);
         frame.mainMenu();
     }
+<<<<<<< HEAD
     public void wordBeforeStart(String w){
         frame.clearScreen();
         JLabel word = new JLabel(w);
@@ -114,6 +115,15 @@ public class App {
         scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
     }
     
+=======
+public class WordGame extends JFrame {
+
+    private String word;
+    private Set<String> uniqueLetters;
+    private Map<String, JButton> buttonMap;
+    private JTextArea selectedLettersTextArea;
+
+>>>>>>> main
     public void showWords(String word) {
         this.uniqueLetters = new HashSet<String>(Arrays.asList(word.split("")));
         this.buttonMap = new HashMap<String, JButton>();
