@@ -3,7 +3,8 @@ package asset.scripts;
 import java.util.Map;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
+import java.io.IOException;
+import java.io.FileWriter;
 import java.util.Scanner;
 
 public class Default {
@@ -26,5 +27,18 @@ public class Default {
             System.out.println(e);
         }
         return data;
+    }
+    public static void savedData(Map<String, Integer> data){
+        try{
+            FileWriter fw = new FileWriter(DEFAULT_SAVED_PATH);
+            fw.write("chapter:"+data.get(CHAPTER));
+            fw.write("episode:"+data.get(EPISODE));
+            fw.write("highest_score:"+data.get(HIGHEST_SCORE));
+            fw.close();
+        }
+        catch(IOException e){
+            System.out.println("Saved Fail");
+            System.out.println(e);
+        }
     }
 }
