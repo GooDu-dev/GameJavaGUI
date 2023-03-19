@@ -180,12 +180,21 @@ public class CustomFrame extends JFrame{
             switch(e){
                 case 1 -> {
                     // set episode in chapter 1 icon
+                    episode.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            App.chapterStage(1);
+                        }
+                    });
                 }
                 case 2 -> {
                     // set episode in chapter 2 icon
-                }
-                case 3 -> {
-                    // set episode in chapter 3 icon
+                    episode.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            App.chapterStage(2);
+                        }
+                    });
                 }
             }
         }

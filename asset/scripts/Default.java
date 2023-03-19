@@ -34,8 +34,8 @@ public class Default {
     public static void savedData(Map<String, Integer> data){
         try{
             FileWriter fw = new FileWriter(DEFAULT_SAVED_PATH);
-            fw.write("chapter:"+data.get(CHAPTER));
-            fw.write("episode:"+data.get(EPISODE));
+            fw.write("chapter:"+data.get(CHAPTER)+"\n");
+            fw.write("episode:"+data.get(EPISODE)+"\n");
             fw.write("highest_score:"+data.get(HIGHEST_SCORE));
             fw.close();
         }

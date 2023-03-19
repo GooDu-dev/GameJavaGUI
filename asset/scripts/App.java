@@ -43,6 +43,73 @@ public class App {
         frame.setResizable(false);
         frame.mainMenu();
     }
+    public void wordBeforeStart(String w){
+        frame.clearScreen();
+        JLabel word = new JLabel(w);
+        frame.getContentPane().add(word);
+    }
+    public static void chapterStage(int level){
+        frame.clearScreen();
+        JLabel timer = new JLabel("Timer : ");
+        Timer t = new Timer(1000, new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                time++;
+                timer.setText("Timer : "+time);
+            }
+        });
+        frame.getContentPane().add(timer);
+        timer.setFont(new Font(timer.getFont().getName(), timer.getFont().getStyle(), frame.getContentPane().getWidth()/50));
+        timer.setAlignmentX(JLabel.RIGHT_ALIGNMENT);
+        t.start();
+
+        CustomPanel field = new CustomPanel();
+        frame.getContentPane().add(field);
+        field.setLayout(new BoxLayout(field, BoxLayout.X_AXIS));
+        field.setPanelSize(0.6, 0.5);
+        field.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+
+        // create player
+        Player player = new Player(3, "", Type.ObjectType.Player);
+        field.add(player);
+        player.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+
+        // create enemy
+        Enemy enemy = new Enemy(3, "", Type.ObjectType.Enemy);
+        field.add(enemy);
+        enemy.setAlignmentX(JLabel.RIGHT_ALIGNMENT);
+        
+        CustomPanel board = new CustomPanel();
+        frame.getContentPane().add(board);
+        board.setLayout(new BoxLayout(board, BoxLayout.Y_AXIS));
+        
+
+        CustomPanel h_container = new CustomPanel();
+        frame.getContentPane().add(h_container);
+        h_container.setLayout(new BoxLayout(h_container, BoxLayout.X_AXIS));
+        for(int i=0; i<player.getHp(); i++){
+            CustomLabel heart = new CustomLabel();
+            frame.getContentPane().add(heart);
+            if(i < player.getHp()-1){
+                h_container.add(Box.createRigidArea(new Dimension((int)(h_container.getWidth()*0.1), 0)));
+            }
+        }
+        
+    }
+    public void countdown(int s){
+        final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        final Runnable runnable = new Runnable() {
+            int countdown = s;
+            public void run() {
+                System.out.println(countdown);
+                countdown--;
+                if (countdown <+ 0) {
+                    scheduler.shutdown();
+                }
+            }
+        };
+        scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
+    }
     
 public class WordGame extends JFrame {
 
