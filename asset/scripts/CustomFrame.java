@@ -82,7 +82,7 @@ public class CustomFrame extends JFrame{
                 int choice = JOptionPane.showConfirmDialog(exit, "Are you sure?");
                 switch(choice){
                     case JOptionPane.YES_OPTION -> {
-                        savedData();
+                        Default.savedData(Default.data);
                         System.exit(0);
                     }
                 }
@@ -173,6 +173,17 @@ public class CustomFrame extends JFrame{
             else{
                 episode.setBackground(Color.GRAY);
             }
+            switch(e){
+                case 1 -> {
+                    // set episode in chapter 1 icon
+                }
+                case 2 -> {
+                    // set episode in chapter 2 icon
+                }
+                case 3 -> {
+                    // set episode in chapter 3 icon
+                }
+            }
         }
 
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
@@ -192,11 +203,5 @@ public class CustomFrame extends JFrame{
         getContentPane().removeAll();
         getContentPane().revalidate();
         getContentPane().repaint();
-    }
-    public boolean savedData(){
-        
-
-
-        return false;
     }
 }
