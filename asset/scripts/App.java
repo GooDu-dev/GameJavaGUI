@@ -22,17 +22,15 @@ public class App {
     private JLabel option_exit;
     
     // Backend
-    private static Map<String, Integer> data = new HashMap<String, Integer>();
     private final String CHAPTER="chapter", EPISODE="episode", HIGHEST_SCORE="highest_score";
     
     private final int MAX_CHAPTER=3, MAX_EPISODE=10;
     private int[] latest_save; 
     public App(){
-        loadData();
+
     }
     public App(String title){
         App.title = title;
-        loadData();
     }
     public void run(){
         frame = new CustomFrame(App.title);
