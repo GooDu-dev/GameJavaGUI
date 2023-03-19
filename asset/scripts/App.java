@@ -8,9 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -20,12 +23,15 @@ public class App {
     private static String title="Game Title";
     private JLabel game_title;
     private JLabel option_exit;
+    private Set<String> uniqueAlphabet;
+    private Map<String, JButton> buttonMap;
     
     // Backend
     private final String CHAPTER="chapter", EPISODE="episode", HIGHEST_SCORE="highest_score";
-    
     private final int MAX_CHAPTER=3, MAX_EPISODE=10;
     private int[] latest_save; 
+    private String word;
+
     public App(){
 
     }
@@ -88,19 +94,39 @@ public class App {
             frame.mainMenu();
         }
     }
-    
-    public void showLetters() {
-        String[] letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","z"};
-        for (String letter : letters) {
+    public void ShowLetter(String word) {
+        HashSet<String> uniqueAlphabet;
+        uniqueAlphabet = new HashSet<String>(Arrays.asList(word.split("")));
+        HashMap<String, JButton> buttonMap = new HashMap<String, JButton>();
+        String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+                             "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+
+        for (String letter : alphabet){ // add a random button for each letter in the alphabet
             JButton charButton = new JButton(letter);
-            charButton.addActionListener(new ActionListener() {
+            if(uniqueAlphabet.contains(letter)) charButton.setBackground(Color.RED);
+            charButton.addActionListener(new ActionListener(){
                 @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (e.getSource() == charButton) {
-                        System.out.println(letter);
-                    }   
+                public void actionPerformed(ActionEvent e){
+                    if(e.getSource() == charButton){
+                        String uniqueAlphabet;
+                        if(uniqueAlphabet.contains(letter)){
+                            charButton.setBackground(Color.GREEN); 
+                            uniqueAlphabet.remove(letter);
+                            if (uniqueAlphabet.isEmpty()) {
+                                JOptionPane.showMessageDialog(null, "Correct" + word + "!");
+                            }
+                        }else{
+                            charButton.setBackground(Color.GRAY);
+                        }
+                    }
                 }
             });
-        }// add the button     
+            buttonMap.put(letter, charButton);
+        }
+        //panel click button
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 13));
+        for (String letter : alphabet) {
+            buttonPanel.add(buttonMap.get(letter));
+        }
     }
 }
