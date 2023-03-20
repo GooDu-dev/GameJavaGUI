@@ -2,7 +2,6 @@ package asset.scripts;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -57,7 +56,6 @@ public class CustomFrame extends JFrame{
                 App.wordBeforeStart();
             }
         });
-        getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/20)));
         
         // create exit button
         CustomButton exit = new CustomButton("asset/picture/button/exit-button.png");
