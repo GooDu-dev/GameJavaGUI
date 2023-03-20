@@ -35,6 +35,7 @@ public class CustomFrame extends JFrame{
     }
     public void mainMenu(){
         clearScreen();
+        JLayeredPane root = new JLayeredPane();
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/5)));
         // create title
         CustomLabel title = new CustomLabel(this.title);

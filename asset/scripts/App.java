@@ -40,8 +40,13 @@ public class App {
     public static void chapterStage(String word){
         frame.clearScreen();
 
+        frame.getContentPane().add(Box.createRigidArea(new Dimension(0, (int)(frame.getContentPane().getHeight()/4))));
+
         JLabel timer = new JLabel("Timer : ");
-        
+
+        CustomPanel container = new CustomPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
+
         final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         final Runnable runnable = new Runnable() {
             int countdownStarter = 10;
@@ -50,33 +55,36 @@ public class App {
 
                 System.out.println(countdownStarter);
                 countdownStarter--;
-                timer.setText("TImer : " + countdownStarter);
+                timer.setText("TImer : " + countdownStarter + " ");
 
                 if (countdownStarter < 0) {
-                    hurt();
-                    wordBeforeStart();
                     scheduler.shutdown();
+                    LifeAll--;
+                    wordBeforeStart();
                 }
             }
         };
-        scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
         //frame.getContentPane().add(timer);
-        frame.getContentPane().add(timer);
+        container.add(timer);
         timer.setFont(new Font(timer.getFont().getName(), timer.getFont().getStyle(), frame.getContentPane().getWidth()/50));
         timer.setAlignmentX(JLabel.LEFT);
 
-        JLabel life = new JLabel("Life : " + LifeAll);
+        JLabel life = new JLabel("Life : " + LifeAll + " ");
         //frame.getContentPane().add(life);
-        frame.getContentPane().add(life);
+        container.add(life);
         life.setFont(new Font(life.getFont().getName(), life.getFont().getStyle(), frame.getContentPane().getWidth()/50));
         life.setAlignmentX(JLabel.LEFT);
 
-        JLabel currentScore = new JLabel("Score : ");
+        JLabel currentScore = new JLabel("Score : " + score + " ");
         currentScore.setFont(new Font(currentScore.getFont().getName(), currentScore.getFont().getStyle(), frame.getContentPane().getWidth()/50));
         currentScore.setAlignmentX(JLabel.LEFT);
 
-        frame.getContentPane().add(currentScore);
-        
+        //frame.getContentPane().add(currentScore);
+        container.add(currentScore);
+        currentScore.setAlignmentX(JLabel.RIGHT_ALIGNMENT);
+
+        frame.getContentPane().add(container);
+
         JTextField answer = new JTextField();
         frame.getContentPane().add(answer);
         answer.setMaximumSize(new Dimension((int)(answer.getParent().getWidth()*0.6), (int)(answer.getParent().getHeight()*0.3)));
@@ -90,22 +98,20 @@ public class App {
                 String getValue = answer.getText();
                 Boolean value = checkWord(getValue, word);
                 if(value == false){
-                    hurt();
+                    LifeAll--;
                     life.setText("Life : " + LifeAll);
                 } else if(value == true){
                     score++;
                     wordBeforeStart();
                 }
-                if(LifeAll == 0){
+                if(LifeAll <= 0){
                     gameOver();
                 }
             }
             
         });
         
-    }
-    public static void hurt(){
-        LifeAll--;
+        scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
     }
     public static void wordBeforeStart(){
         frame.clearScreen();
@@ -128,8 +134,8 @@ public class App {
                 countdownStarter--;
 
                 if (countdownStarter < 0) {
-                    chapterStage(wordRandom);
                     scheduler.shutdown();
+                    chapterStage(wordRandom);
                 }
             }
         };
@@ -159,11 +165,12 @@ public class App {
                 countdownStarter--;
 
                 if (countdownStarter < 0) {
-                    frame.mainMenu();
                     scheduler.shutdown();
+                    frame.mainMenu();
                 }
             }
         };
         scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
+        LifeAll = 3;
     }
 }
