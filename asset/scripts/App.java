@@ -127,11 +127,11 @@ public class App {
         uniqueLetters = new HashSet<String>(Arrays.asList(word.split("")));
         buttonMap = new HashMap<String, JButton>();
         selectedLettersTextArea = new JTextArea(2, 20);
-
+    
         // create an array of all letters A-Z
         String[] alphabet = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
                 "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
-
+    
         // add a random button for each letter in the alphabet
         for(String letter : alphabet){
             JButton charButton = new JButton(letter);
@@ -158,18 +158,33 @@ public class App {
             });
             buttonMap.put(letter, charButton);
         }
-        // create a panel to click button
+    
+        // add a button to show the selected letters
+        JButton showSelectedButton = new JButton("Show Selected");
+        showSelectedButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Selected letters: " + selectedLettersTextArea.getText());
+            }
+        });
+    
+        // create a panel to hold the buttons and the "Show Selected" button
         JPanel buttonPanel = new JPanel(new GridLayout(2, 13));
         for (String letter : alphabet) {
             buttonPanel.add(buttonMap.get(letter));
         }
+        buttonPanel.add(showSelectedButton);
+    
+        // create a main panel to hold the button panel and the selected letters text area
         JPanel mainPanel = new JPanel();
         mainPanel.add(buttonPanel);
         mainPanel.add(selectedLettersTextArea);
+    
+        // add the main panel to the frame and display it
         frame.add(mainPanel);
         frame.pack();
         frame.setVisible(true);
-    }
+    }    
     public static void removeLetter(String letter) {
         uniqueLetters.remove(letter);
     }
