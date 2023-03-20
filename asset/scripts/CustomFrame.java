@@ -9,18 +9,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import asset.scripts.inteface.Type;
-
 import javax.swing.*;
-import javax.swing.BorderFactory;
 
 public class CustomFrame extends JFrame{
     private static final TimeUnit SECONDS = null;
@@ -179,14 +169,14 @@ public class CustomFrame extends JFrame{
 
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
 
-        CustomButton back = new CustomButton("asset/picture/button/back-button-2.png");
-        getContentPane().add(back);
-        back.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        back.setButtonSize(0.01, 0.006);
-        back.setOpaque(false);
-        back.setContentAreaFilled(false);
-        back.setBorderPainted(false);
-        back.addActionListener(new ActionListener() {
+        CustomButton exit = new CustomButton("asset/picture/button/exit-button.png");
+        getContentPane().add(exit);
+        exit.setOpaque(false);
+        exit.setContentAreaFilled(false);
+        exit.setBorderPainted(false);
+        exit.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        exit.setButtonSize(0.6, 1);
+        exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 chapterMenu();

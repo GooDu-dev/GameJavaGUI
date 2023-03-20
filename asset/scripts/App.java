@@ -120,7 +120,7 @@ public class App {
     public static void wordBeforeStart(){
         frame.clearScreen();
         ArrayList<String> words = new ArrayList<>(Default.fetchWords());
-        String wordRandom = words.get(new Random().nextInt(0, words.size()));
+        String wordRandom = words.get(new Random().nextInt(words.size()));
         JLabel word = new JLabel(wordRandom);
         frame.getContentPane().add(word);
 
