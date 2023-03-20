@@ -68,16 +68,24 @@ public class App {
         scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
         frame.getContentPane().add(timer);
         timer.setFont(new Font(timer.getFont().getName(), timer.getFont().getStyle(), frame.getContentPane().getWidth()/50));
-        timer.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+        timer.setAlignmentX(JLabel.LEFT);
+
+        JPanel board = new JPanel();
+        
 
         Integer LifeAll = 3;
         JLabel life = new JLabel("Life : " + LifeAll);
-        frame.getContentPane().add(life);
+        //frame.getContentPane().add(life);
+        board.add(life);
         life.setFont(new Font(life.getFont().getName(), life.getFont().getStyle(), frame.getContentPane().getWidth()/50));
-        life.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+        life.setAlignmentX(JLabel.LEFT);
         
         JTextField answer = new JTextField();
         frame.getContentPane().add(answer);
+        answer.setMaximumSize(new Dimension((int)(answer.getParent().getWidth()*0.6), (int)(answer.getParent().getHeight()*0.3)));
+        answer.setSize(new Dimension((int)(answer.getParent().getWidth()*0.6), (int)(answer.getParent().getHeight()*0.3)));
+        answer.setMinimumSize(new Dimension((int)(answer.getParent().getWidth()*0.6), (int)(answer.getParent().getHeight()*0.3)));
+        answer.setAlignmentX(JTextField.CENTER_ALIGNMENT);
         answer.setFont(new Font(answer.getFont().getName(), answer.getFont().getStyle(), frame.getContentPane().getWidth()/50));
         answer.addActionListener(new ActionListener(){
             Integer lifeCurrent = LifeAll;
@@ -94,16 +102,17 @@ public class App {
                 if(lifeCurrent == 0){
                     gameOver();
                 }
-             }
+            }
         });
     }
     public static void wordBeforeStart(){
         frame.clearScreen();
         ArrayList<String> words = new ArrayList<>(Default.fetchWords());
         String wordRandom = words.get(new Random().nextInt(words.size()));
-        JLabel word = new JLabel(wordRandom);
+        CustomLabel word = new CustomLabel(wordRandom);
         frame.getContentPane().add(word);
-        word.setFont(new Font(word.getFont().getName(), word.getFont().getStyle(), frame.getContentPane().getWidth()/50));
+        word.setFontSize(15);
+        word.setBorder(BorderFactory.createEmptyBorder((int)(word.getParent().getHeight()/3), 0, 0, 0));
         word.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         word.setAlignmentY(JLabel.CENTER_ALIGNMENT);
 
