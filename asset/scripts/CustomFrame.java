@@ -67,19 +67,8 @@ public class CustomFrame extends JFrame{
                 chapterMenu();
             }
         });
-        getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/25)));
-        // create endless button
-        // CustomButton endless = new CustomButton("Endless");
-        // getContentPane().add(endless);
-        // endless.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        // endless.setFontSize(50);
-        // endless.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-                
-        //     }
-        // });
-        //getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/25)));
+        getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/20)));
+        
         // create exit button
         CustomButton exit = new CustomButton("asset/picture/button/exit-button.png");
         getContentPane().add(exit);
@@ -100,18 +89,18 @@ public class CustomFrame extends JFrame{
     }
     public void chapterMenu(){
         clearScreen();
-        getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/5)));
+        getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/8)));
         CustomLabel title = new CustomLabel(this.title);
         getContentPane().add(title);
         title.setFontSize(20);
         title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
-        getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
+        getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/15)));
 
         CustomPanel container = new CustomPanel();
         getContentPane().add(container);
         container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
-        container.setPanelSize(0.5, 0.4);
+        container.setPanelSize(0.4, 0.3);
         for(int i=0; i<Default.MAX_CHAPTER; i++){
             System.out.println(i);
             int id = i;
@@ -137,11 +126,12 @@ public class CustomFrame extends JFrame{
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
 
         // create exit button
-        CustomButton exit = new CustomButton("asset/picture/button/back-button.png");
+        CustomButton exit = new CustomButton("asset/picture/button/exit-button-2.png");
         getContentPane().add(exit);
-        exit.setFontSize(50);
         exit.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        exit.setButtonSize(0.6, 1);
+        exit.setOpaque(false);
+        exit.setContentAreaFilled(false);
+        exit.setBorderPainted(false);
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -182,61 +172,26 @@ public class CustomFrame extends JFrame{
             episode.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    wordBeforeStart();
+                    App.wordBeforeStart();
                 }
             });
         }
 
         getContentPane().add(Box.createRigidArea(new Dimension(0, getContentPane().getHeight()/10)));
 
-        CustomButton back = new CustomButton("asset/picture/button/back-button.png");
+        CustomButton back = new CustomButton("asset/picture/button/back-button-2.png");
         getContentPane().add(back);
         back.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        back.setSize(0.01, 0.006);
+        back.setOpaque(false);
+        back.setContentAreaFilled(false);
+        back.setBorderPainted(false);
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 chapterMenu();
             }
         });
-    }
-    public void wordBeforeStart(){
-        clearScreen();
-        ArrayList<String> words = new ArrayList<>(Default.fetchWords());
-        JLabel word = new JLabel(words.get(new Random().nextInt(0, words.size())));
-        getContentPane().add(word);
-    }
-    public void ShowLetter(String word) {
-        HashSet<String> uniqueAlphabet = new HashSet<String>(Arrays.asList(word.split("")));
-        HashMap<String, JButton> buttonMap = new HashMap<String, JButton>();
-        String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
-                            "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-
-        for (String letter : alphabet){ // add a random button for each letter in the alphabet
-            JButton charButton = new JButton(letter);
-            if(uniqueAlphabet.contains(letter)) charButton.setBackground(Color.RED);
-            charButton.addActionListener(new ActionListener(){
-                @Override
-                public void actionPerformed(ActionEvent e){
-                    if(e.getSource() == charButton){
-                        if(uniqueAlphabet.contains(letter)){
-                            charButton.setBackground(Color.GREEN); 
-                            uniqueAlphabet.remove(letter);
-                            if (uniqueAlphabet.isEmpty()) {
-                                JOptionPane.showMessageDialog(null, "Correct" + word + "!");
-                            }
-                        }else{
-                            charButton.setBackground(Color.GRAY);
-                        }
-                    }
-                }
-            });
-            buttonMap.put(letter, charButton);
-        }
-        //panel click button
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 13));
-        for (String letter : alphabet) {
-            buttonPanel.add(buttonMap.get(letter));
-        }
     }
     public void clearScreen(){
         getContentPane().removeAll();

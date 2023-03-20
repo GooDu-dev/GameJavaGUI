@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,6 +15,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -26,9 +28,9 @@ public class App {
     private static CustomFrame frame;
     private static String title="Game Title";
     private static int time = 0;
-    private Set<String> uniqueLetters;
-    private Map<String, JButton> buttonMap;
-    private JTextArea selectedLettersTextArea;
+    private static Set<String> uniqueLetters;
+    private static Map<String, JButton> buttonMap;
+    private static JTextArea selectedLettersTextArea;
 
     // Backend
     public App(){
@@ -48,7 +50,7 @@ public class App {
         JLabel word = new JLabel(w);
         frame.getContentPane().add(word);
     }
-    public static void chapterStage(int level){
+    public static void chapterStage(String word){
         frame.clearScreen();
         JLabel timer = new JLabel("Timer : ");
         Timer t = new Timer(1000, new ActionListener(){
@@ -83,7 +85,7 @@ public class App {
         frame.getContentPane().add(board);
         board.setLayout(new BoxLayout(board, BoxLayout.Y_AXIS));
         
-
+        //showWords(word);
         CustomPanel h_container = new CustomPanel();
         frame.getContentPane().add(h_container);
         h_container.setLayout(new BoxLayout(h_container, BoxLayout.X_AXIS));
@@ -96,14 +98,24 @@ public class App {
         }
         
     }
-    public void countdown(int s){
+    public static void wordBeforeStart(){
+        frame.clearScreen();
+        ArrayList<String> words = new ArrayList<>(Default.fetchWords());
+        String wordRandom = words.get(new Random().nextInt(0, words.size()));
+        JLabel word = new JLabel(wordRandom);
+        frame.getContentPane().add(word);
+
         final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         final Runnable runnable = new Runnable() {
-            int countdown = s;
+            int countdownStarter = 5;
+
             public void run() {
-                System.out.println(countdown);
-                countdown--;
-                if (countdown <+ 0) {
+
+                System.out.println(countdownStarter);
+                countdownStarter--;
+
+                if (countdownStarter < 0) {
+                    chapterStage(wordRandom);
                     scheduler.shutdown();
                 }
             }
@@ -111,10 +123,10 @@ public class App {
         scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
     }
     
-    public void showWords(String word) {
-        this.uniqueLetters = new HashSet<String>(Arrays.asList(word.split("")));
-        this.buttonMap = new HashMap<String, JButton>();
-        this.selectedLettersTextArea = new JTextArea(2, 20);
+    public static void showWords(String word) {
+        uniqueLetters = new HashSet<String>(Arrays.asList(word.split("")));
+        buttonMap = new HashMap<String, JButton>();
+        selectedLettersTextArea = new JTextArea(2, 20);
 
         // create an array of all letters A-Z
         String[] alphabet = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
@@ -133,7 +145,6 @@ public class App {
                         if(uniqueLetters.contains(letter)){
                             charButton.setBackground(Color.GREEN);
                             removeLetter(letter);
-                            // add the selected letter
                             selectedLettersTextArea.append(letter);
                             selectedLettersTextArea.append(" ");
                             if(uniqueLetters.isEmpty()){
@@ -159,7 +170,7 @@ public class App {
         frame.pack();
         frame.setVisible(true);
     }
-    public void removeLetter(String letter) {
+    public static void removeLetter(String letter) {
         uniqueLetters.remove(letter);
     }
 }
