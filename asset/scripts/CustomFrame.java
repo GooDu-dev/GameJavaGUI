@@ -182,7 +182,7 @@ public class CustomFrame extends JFrame{
         CustomButton back = new CustomButton("asset/picture/button/back-button-2.png");
         getContentPane().add(back);
         back.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        back.setSize(0.01, 0.006);
+        back.setButtonSize(0.01, 0.006);
         back.setOpaque(false);
         back.setContentAreaFilled(false);
         back.setBorderPainted(false);
