@@ -69,7 +69,14 @@ public class App {
         timer.setFont(new Font(timer.getFont().getName(), timer.getFont().getStyle(), frame.getContentPane().getWidth()/50));
         timer.setAlignmentX(JLabel.LEFT);
 
+<<<<<<< Updated upstream
         JLabel life = new JLabel("Life : " + LifeAll + " ");
+=======
+        JPanel board = new JPanel();
+
+        Integer LifeAll = 3;
+        JLabel life = new JLabel("Life : " + LifeAll);
+>>>>>>> Stashed changes
         //frame.getContentPane().add(life);
         container.add(life);
         life.setFont(new Font(life.getFont().getName(), life.getFont().getStyle(), frame.getContentPane().getWidth()/50));
